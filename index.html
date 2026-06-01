@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Like a Local — Suwon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0c0a;
+    --cream: #f5f0e8;
+    --clay: #c8563a;
+    --sage: #4a6741;
+    --sand: #d4b896;
+    --offwhite: #faf7f2;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid var(--cream);
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover { background: var(--cream); color: var(--black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,86,58,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(74,103,65,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 13vw, 11rem);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-h1 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--clay);
+  }
+  .hero-sub {
+    max-width: 36rem;
+    margin-top: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+  .hero-sub span { opacity: 0.6; }
+  .hero-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .btn-primary {
+    padding: 0.9rem 2.2rem;
+    background: var(--clay);
+    color: var(--cream);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: #b34430; }
+  .btn-ghost {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.6;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    writing-mode: vertical-rl;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.35;
+  }
+  .hero-number {
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 18vw, 16rem);
+    color: var(--cream);
+    opacity: 0.04;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION COMMONS */
+  section { padding: 8rem 3rem; }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--offwhite);
+    color: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-left .section-label { color: var(--clay); }
+  .about-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--black);
+  }
+  .about-h2 em { font-style: italic; color: var(--clay); }
+  .about-body {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #3a3631;
+    opacity: 0.85;
+  }
+  .about-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .stat-box {
+    border-top: 1.5px solid var(--black);
+    padding-top: 1rem;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--clay);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5a5550;
+    margin-top: 0.3rem;
+  }
+  .about-visual {
+    position: relative;
+    height: 480px;
+  }
+  .about-card {
+    position: absolute;
+    border-radius: 0;
+  }
+  .about-card-main {
+    inset: 0;
+    background: linear-gradient(160deg, #2a1f18 0%, #1a2e1e 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .about-card-main::before {
+    content: '화성';
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+  }
+  .about-card-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 0.5rem;
+  }
+  .about-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    left: -1.5rem;
+    width: 130px;
+    height: 130px;
+    background: var(--clay);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+  }
+  .about-badge-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--cream);
+    line-height: 1;
+  }
+  .about-badge-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.8);
+    margin-top: 0.2rem;
+  }
+
+  /* TOURS */
+  .tours { background: var(--black); }
+  .tours-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+  .tours-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    letter-spacing: 0.02em;
+    color: var(--cream);
+  }
+  .tours-link {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.1rem;
+    transition: color 0.2s;
+  }
+  .tours-link:hover { color: var(--clay); }
+  .tours-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+  }
+  .tour-card {
+    position: relative;
+    padding: 2.5rem 2rem;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .tour-card:hover { transform: translateY(-6px); }
+  .tour-card:hover .tour-overlay { opacity: 0.5; }
+  .tour-bg { position: absolute; inset: 0; }
+  .tour-card:nth-child(1) .tour-bg { background: linear-gradient(160deg, #1c2f1a 0%, #2a1f14 100%); }
+  .tour-card:nth-child(2) .tour-bg { background: linear-gradient(160deg, #2f1a1a 0%, #1a1f2a 100%); }
+  .tour-card:nth-child(3) .tour-bg { background: linear-gradient(160deg, #1a1f2a 0%, #2a2014 100%); }
+  .tour-card:nth-child(4) .tour-bg { background: linear-gradient(160deg, #2a1a22 0%, #1a2a1a 100%); }
+  .tour-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0.3;
+    transition: opacity 0.3s;
+  }
+  .tour-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.07);
+    line-height: 1;
+  }
+  .tour-icon {
+    position: relative;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .tour-name {
+    position: relative;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 0.7rem;
+  }
+  .tour-desc {
+    position: relative;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: rgba(245,240,232,0.6);
+  }
+  .tour-meta {
+    position: relative;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(245,240,232,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sand);
+  }
+
+  /* HOW */
+  .how {
+    background: var(--cream);
+    color: var(--black);
+  }
+  .how .section-label { color: var(--clay); }
+  .how-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--black);
+    margin-bottom: 4rem;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .step { position: relative; }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 1.8rem;
+    left: 2.8rem;
+    right: 0;
+    height: 1px;
+    background: rgba(13,12,10,0.15);
+  }
+  .step:last-child::before { display: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+  .step-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1.5px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+    background: var(--cream);
+  }
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--black);
+    margin-bottom: 0.6rem;
+  }
+  .step-body {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #3a3631;
+    opacity: 0.8;
+  }
+
+  /* MARKET */
+  .market {
+    background: var(--sage);
+    color: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .market .section-label { color: var(--sand); }
+  .market-h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.2;
+    color: var(--cream);
+  }
+  .market-body {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(245,240,232,0.75);
+  }
+  .market-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .mstat {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    border-bottom: 1px solid rgba(245,240,232,0.2);
+    padding-bottom: 1.5rem;
+  }
+  .mstat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 0.4rem;
+  }
+  .mstat-desc {
+    font-size: 0.88rem;
+    color: var(--cream);
+  }
+  .mstat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--sand);
+    line-height: 1;
+    text-align: right;
+  }
+  .mstat-unit {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.1em;
+    text-align: right;
+  }
+
+  /* TEAM */
+  .team {
+    background: var(--black);
+    color: var(--cream);
+  }
+  .team-header { margin-bottom: 4rem; }
+  .team-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--cream);
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+  .team-card {
+    background: #141410;
+    padding: 2.5rem 2rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .team-card:nth-child(1) { border-color: var(--clay); }
+  .team-card:nth-child(2) { border-color: var(--sage); }
+  .team-card:nth-child(3) { border-color: var(--sand); }
+  .team-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(245,240,232,0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--sand);
+    margin-bottom: 1.5rem;
+  }
+  .team-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+  .team-role {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1.2rem;
+  }
+  .team-bio {
+    font-size: 0.87rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.55);
+  }
+
+  /* CTA */
+  .cta {
+    background: var(--clay);
+    color: var(--cream);
+    text-align: center;
+    padding: 8rem 3rem;
+  }
+  .cta-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .cta-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.75);
+    max-width: 34rem;
+    margin: 0 auto 2.5rem;
+  }
+  .btn-white {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--cream);
+    color: var(--clay);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.25s;
+  }
+  .btn-white:hover { background: var(--black); color: var(--cream); }
+
+  /* FOOTER */
+  footer {
+    background: #080807;
+    padding: 4rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .footer-brand .nav-logo { display: block; margin-bottom: 0.8rem; font-size: 1.6rem; }
+  .footer-tagline {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.4);
+  }
+  .footer-col-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1.2rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.6rem; }
+  .footer-links a {
+    font-size: 0.87rem;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-contact p {
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.45);
+    line-height: 1.8;
+  }
+  .footer-contact strong {
+    color: rgba(245,240,232,0.7);
+    font-weight: 400;
+  }
+  .footer-bottom {
+    background: #080807;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,240,232,0.05);
+  }
+  .footer-bottom p {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.25);
+    letter-spacing: 0.06em;
+  }
+  .footer-bottom a {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.25);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--clay);
+    overflow: hidden;
+    padding: 1rem 0;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-track span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    margin: 0 2rem;
+    opacity: 0.85;
+  }
+  .marquee-track .sep {
+    opacity: 0.4;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Like a Local</a>
+  <ul class="nav-links">
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-number">수원</div>
+  <p class="hero-tag">Suwon · UNESCO World Heritage · Korea</p>
+  <h1 class="hero-h1">Experience<br><em>Suwon</em><br>Like a Local</h1>
+  <p class="hero-sub">
+    We match international travelers with Suwon's hidden gems —<br>
+    <span>authentic neighborhoods, local guides, real stories.</span>
+  </p>
+  <div class="hero-actions">
+    <a href="#tours" class="btn-primary">Explore Tours</a>
+    <a href="#how" class="btn-ghost">How it works →</a>
+  </div>
+  <span class="hero-scroll">Scroll to discover</span>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Hwaseong Fortress</span><span class="sep">✦</span>
+    <span>Haenggung-dong</span><span class="sep">✦</span>
+    <span>Paldal Market</span><span class="sep">✦</span>
+    <span>Local Guides</span><span class="sep">✦</span>
+    <span>Authentic Experiences</span><span class="sep">✦</span>
+    <span>AI-Matched Tours</span><span class="sep">✦</span>
+    <span>Beyond Seoul</span><span class="sep">✦</span>
+    <span>Hwaseong Fortress</span><span class="sep">✦</span>
+    <span>Haenggung-dong</span><span class="sep">✦</span>
+    <span>Paldal Market</span><span class="sep">✦</span>
+    <span>Local Guides</span><span class="sep">✦</span>
+    <span>Authentic Experiences</span><span class="sep">✦</span>
+    <span>AI-Matched Tours</span><span class="sep">✦</span>
+    <span>Beyond Seoul</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <p class="section-label">About Like a Local</p>
+    <h2 class="about-h2">Suwon is one hour from Seoul.<br><em>Yet most visitors never arrive.</em></h2>
+    <p class="about-body">
+      Like a Local is an AI-powered travel matching platform that connects Western independent travelers with Suwon's authentic local experiences — from the walls of Hwaseong to the alleyways of Haenggung-dong. We pair each traveler's unique interests with the right guides and local businesses, creating journeys that no guidebook could script.
+    </p>
+    <div class="about-stat-grid">
+      <div class="stat-box">
+        <div class="stat-num">12.8M</div>
+        <div class="stat-label">Foreign visitors to Korea, 2024</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">+124%</div>
+        <div class="stat-label">Western traveler recovery rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Curated tour routes</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Platform launch year</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-visual">
+      <div class="about-card about-card-main">
+        <p class="about-card-tag">UNESCO World Heritage</p>
+        <h3 class="about-card-title">Hwaseong Fortress<br>— Suwon, Korea</h3>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-num">1796</div>
+        <div class="about-badge-text">Est. by King Jeongjo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS -->
+<section class="tours" id="tours">
+  <div class="tours-header">
+    <div>
+      <p class="section-label">Our Experiences</p>
+      <h2 class="tours-h2">Curated Tours</h2>
+    </div>
+    <a href="#cta" class="tours-link">View all experiences →</a>
+  </div>
+  <div class="tours-grid">
+    <div class="tour-card">
+      <div class="tour-bg"></div>
+      <div class="tour-overlay"></div>
+      <div class="tour-number">01</div>
+      <div class="tour-icon">🏯</div>
+      <h3 class="tour-name">Fortress & Heritage Walk</h3>
+      <p class="tour-desc">Trace the 5.7km walls of Hwaseong with a local historian. Discover hidden gates, watchtowers, and royal history.</p>
+      <div class="tour-meta">
+        <span>3–4 hours</span>
+        <span>From ₩65,000</span>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-bg"></div>
+      <div class="tour-overlay"></div>
+      <div class="tour-number">02</div>
+      <div class="tour-icon">🍜</div>
+      <h3 class="tour-name">Haenggung-dong Food Crawl</h3>
+      <p class="tour-desc">Navigate the trendy alleys of Haenggung-dong, tasting local delicacies and meeting the artisans behind each dish.</p>
+      <div class="tour-meta">
+        <span>2–3 hours</span>
+        <span>From ₩55,000</span>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-bg"></div>
+      <div class="tour-overlay"></div>
+      <div class="tour-number">03</div>
+      <div class="tour-icon">🎨</div>
+      <h3 class="tour-name">Artisan & Craft Quarter</h3>
+      <p class="tour-desc">Meet local potters, calligraphers, and craftspeople keeping traditional Korean arts alive in contemporary studios.</p>
+      <div class="tour-meta">
+        <span>3 hours</span>
+        <span>From ₩70,000</span>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-bg"></div>
+      <div class="tour-overlay"></div>
+      <div class="tour-number">04</div>
+      <div class="tour-icon">🌙</div>
+      <h3 class="tour-name">Evening Paldal Market</h3>
+      <p class="tour-desc">As the sun sets, the markets come alive. Shop, eat, and connect with locals in Suwon's most vibrant night market.</p>
+      <div class="tour-meta">
+        <span>2 hours</span>
+        <span>From ₩45,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <p class="section-label">The Process</p>
+  <h2 class="how-h2">Three Steps to<br>Your Perfect Tour</h2>
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">01</p>
+      <div class="step-icon">📋</div>
+      <h3 class="step-title">Share Your Interests</h3>
+      <p class="step-body">Tell us what you love — history, food, art, architecture. Our AI analyzes your travel style to build your ideal experience profile.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">02</p>
+      <div class="step-icon">🤝</div>
+      <h3 class="step-title">Get Matched Instantly</h3>
+      <p class="step-body">We connect you with the ideal local guide and partner businesses that align perfectly with your preferences and schedule.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">03</p>
+      <div class="step-icon">🗺️</div>
+      <h3 class="step-title">Explore Like a Local</h3>
+      <p class="step-body">Book, pay, and show up. Your guide handles everything else — stories, hidden spots, and the Suwon that tourists never see.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div>
+    <p class="section-label">Why Suwon, Why Now</p>
+    <h2 class="market-h2">The market is here. We're building the bridge.</h2>
+    <p class="market-body">
+      Western travelers are returning to Korea at record rates — yet the tourism infrastructure hasn't caught up outside Seoul. Like a Local closes that gap: English-first booking, AI-matched guides, and direct connections to Suwon's thriving local economy.
+    </p>
+  </div>
+  <div class="market-stats">
+    <div class="mstat">
+      <div>
+        <p class="mstat-label">Global Experience Market</p>
+        <p class="mstat-desc">Growing at 15% annually through 2030</p>
+      </div>
+      <div>
+        <p class="mstat-num">$60B</p>
+        <p class="mstat-unit">By 2030</p>
+      </div>
+    </div>
+    <div class="mstat">
+      <div>
+        <p class="mstat-label">Western Visitors to Korea</p>
+        <p class="mstat-desc">US, Europe & UK recovery surge</p>
+      </div>
+      <div>
+        <p class="mstat-num">124%</p>
+        <p class="mstat-unit">Recovery rate</p>
+      </div>
+    </div>
+    <div class="mstat">
+      <div>
+        <p class="mstat-label">Target Addressable Market</p>
+        <p class="mstat-desc">Seoul-based independent Western travelers</p>
+      </div>
+      <div>
+        <p class="mstat-num">3.8M</p>
+        <p class="mstat-unit">Per year</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="team-header">
+    <p class="section-label">The People Behind It</p>
+    <h2 class="team-h2">Our Team</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">IJ</div>
+      <h3 class="team-name">Im Jong-gil</h3>
+      <p class="team-role">Founder & CEO · 수목회</p>
+      <p class="team-bio">Launched Sumokwhe (수목회) in January 2026. Has researched Western traveler trends since 2024 and personally organized familiarity tours to validate Suwon's global appeal. Leads strategy, partnerships, and operations.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">PE</div>
+      <h3 class="team-name">Park Ye-eun</h3>
+      <p class="team-role">Marketing & Operations Lead</p>
+      <p class="team-bio">Manages English-language marketing, social media content creation, and business planning. Drives the brand voice across Instagram, TikTok, and YouTube — building our community one post at a time.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">LG</div>
+      <h3 class="team-name">Local Guides</h3>
+      <p class="team-role">Suwon's Hidden Experts</p>
+      <p class="team-bio">Our guide network is made up of English-fluent Suwon residents — historians, chefs, artists — who share their city not as a performance, but as a lived reality. Onboarding 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <h2 class="cta-h2">Ready to See<br>the Real Korea?</h2>
+  <p class="cta-body">Join our waitlist for early access to Like a Local tours launching September 2026. Be among the first to experience Suwon through the eyes of those who know it best.</p>
+  <a href="mailto:likealocal.suwon@gmail.com" class="btn-white">Get Early Access</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">Like a Local</a>
+    <p class="footer-tagline">AI-powered authentic travel matching platform connecting Western travelers with Suwon's local culture.</p>
+  </div>
+  <div>
+    <p class="footer-col-title">Explore</p>
+    <ul class="footer-links">
+      <li><a href="#tours">Our Tours</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#about">About Suwon</a></li>
+      <li><a href="#team">Our Team</a></li>
+      <li><a href="#cta">Book a Tour</a></li>
+    </ul>
+  </div>
+  <div class="footer-contact">
+    <p class="footer-col-title">Contact</p>
+    <p>
+      <strong>Company</strong><br>
+      Sumokwhe (수목회)<br>
+      Registered: Jan 8, 2026<br><br>
+      <strong>Location</strong><br>
+      Suwon, Gyeonggi-do, Korea<br><br>
+      <strong>Instagram</strong><br>
+      @likealocal_suwon<br><br>
+      <strong>Email</strong><br>
+      likealocal.suwon@gmail.com
+    </p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Like a Local · Sumokwhe · Business Reg. 758-30-01901</p>
+  <a href="#">Privacy Policy</a>
+</div>
+
+</body>
+</html>
