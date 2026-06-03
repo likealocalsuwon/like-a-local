@@ -864,45 +864,57 @@ footer ul li a:hover{color:var(--terra-lt)}
           <span class="pname" id="modal-pname">Tour Name</span>
           <span class="pprice" id="modal-price">₩00,000</span>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="e.g. Sarah">
+
+        <!-- ★ Formspree form — YOUR_FORM_ID 부분만 교체하면 됩니다 ★ -->
+        <form id="booking-form" action="https://formspree.io/f/mzdqpavp" method="POST">
+
+          <!-- 어떤 투어인지 숨겨서 함께 전송 -->
+          <input type="hidden" name="Tour Name" id="form-tour-name">
+          <input type="hidden" name="Price" id="form-tour-price">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="First Name" placeholder="e.g. Sarah" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="Last Name" placeholder="e.g. Kim" required>
+            </div>
           </div>
           <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="e.g. Kim">
+            <label>Email Address</label>
+            <input type="email" name="Email" placeholder="sarah@email.com" required>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="sarah@email.com">
-        </div>
-        <div class="form-row">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" name="Preferred Date" required>
+            </div>
+            <div class="form-group">
+              <label>Number of Guests</label>
+              <select name="Guests">
+                <option>1 guest</option>
+                <option>2 guests</option>
+                <option>3 guests</option>
+                <option>4 guests</option>
+                <option>5 guests</option>
+                <option>6+ guests</option>
+              </select>
+            </div>
+          </div>
           <div class="form-group">
-            <label>Preferred Date</label>
-            <input type="date">
+            <label>Special Requests (optional)</label>
+            <input type="text" name="Special Requests" placeholder="Dietary needs, accessibility, etc.">
           </div>
-          <div class="form-group">
-            <label>Number of Guests</label>
-            <select>
-              <option>1 guest</option>
-              <option>2 guests</option>
-              <option>3 guests</option>
-              <option>4 guests</option>
-              <option>5 guests</option>
-              <option>6+ guests</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Special Requests (optional)</label>
-          <input type="text" placeholder="Dietary needs, accessibility, etc.">
-        </div>
-        <button class="btn-submit" onclick="submitBooking()">Confirm Reservation →</button>
-        <p class="modal-note">No payment today — we'll confirm availability and send a payment link within 24 hours.</p>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Confirm Reservation →</button>
+          <p class="modal-note">No payment today — we'll confirm availability and send a payment link within 24 hours.</p>
+        </form>
       </div>
     </div>
+
+    <!-- 성공 화면 -->
     <div class="success-screen" id="success-screen">
       <div class="success-icon">✓</div>
       <h3>You're on the list!</h3>
@@ -915,7 +927,7 @@ footer ul li a:hover{color:var(--terra-lt)}
 </div>
 
 <script>
-// Tab switching
+// ── 탭 전환
 function switchTab(id) {
   document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.cpanel').forEach(p => p.classList.remove('active'));
@@ -923,34 +935,60 @@ function switchTab(id) {
   event.currentTarget.classList.add('active');
 }
 
-// Booking modal
+// ── 모달 열기 (투어 정보 주입)
 function openBooking(name, price, meta) {
   document.getElementById('modal-title').textContent = name;
   document.getElementById('modal-pname').textContent = name + (meta ? ' · ' + meta : '');
   document.getElementById('modal-price').textContent = price;
+  // 숨겨진 필드에 투어명·가격 세팅 → Formspree 이메일에 포함됨
+  document.getElementById('form-tour-name').value = name + (meta ? ' · ' + meta : '');
+  document.getElementById('form-tour-price').value = price;
   document.getElementById('modal-form-content').style.display = 'block';
   document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('booking-form').reset();
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
+// ── 모달 닫기
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function closeModalOverlay(e) {
   if (e.target === document.getElementById('modal')) closeModal();
 }
 
-function submitBooking() {
-  const ref = 'LAL-' + String(Math.floor(Math.random()*9000)+1000);
-  document.getElementById('success-ref').textContent = 'REF #' + ref;
-  document.getElementById('modal-form-content').style.display = 'none';
-  document.getElementById('success-screen').classList.add('show');
-}
+// ── Formspree AJAX 제출 (페이지 이동 없이 성공 화면 표시)
+document.getElementById('booking-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
 
-// Scroll animations
+  const data = new FormData(this);
+  try {
+    const res = await fetch(this.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      const ref = 'LAL-' + String(Math.floor(Math.random()*9000)+1000);
+      document.getElementById('success-ref').textContent = 'REF #' + ref;
+      document.getElementById('modal-form-content').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+    } else {
+      btn.textContent = 'Error — Please try again';
+      btn.disabled = false;
+    }
+  } catch {
+    btn.textContent = 'Error — Please try again';
+    btn.disabled = false;
+  }
+});
+
+// ── 스크롤 애니메이션
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
