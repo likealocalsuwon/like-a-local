@@ -361,7 +361,7 @@ nav{
   transition:background .2s;position:relative;overflow:hidden;
 }
 .ccard:hover{background:var(--ivory)}
-.ccard-img{height:180px;position:relative;overflow:hidden}
+.ccard-img{height:180px;position:relative;overflow:hidden;background-size:cover!important;background-position:center!important}
 .ccard-img svg{width:100%;height:100%;display:block;transition:transform .55s}
 .ccard:hover .ccard-img svg{transform:scale(1.05)}
 .ccard-dur{
@@ -623,6 +623,37 @@ footer ul li a:hover{color:var(--ink)}
   footer{grid-template-columns:1fr 1fr;padding:48px 28px 28px}
   .footer-bot{padding:16px 28px;flex-direction:column;gap:6px}
 }
+
+/* grain */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.6;mix-blend-mode:multiply;}
+/* hero video */
+.hero-video-wrap{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-video-wrap iframe{position:absolute;top:50%;left:50%;
+  width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;
+  transform:translate(-50%,-50%);border:none;pointer-events:none;}
+/* image panels */
+.img-panel{width:100%;height:100%;background-size:cover;background-position:center;
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94);display:block;}
+.mc:hover .img-panel,.gb:hover .img-panel{transform:scale(1.05)}
+/* hero text over dark video */
+.hero-h1{color:#f8f5ef!important}
+.hero-h1 em{color:rgba(212,185,140,.9)!important}
+.hero-h1 .sub-line{color:rgba(248,245,239,.5)!important}
+.hero-stats{border-top-color:rgba(255,255,255,.12)!important}
+.hstat-n{color:#f8f5ef!important}
+.hstat-l{color:rgba(248,245,239,.4)!important}
+.scroll-hint span{color:rgba(248,245,239,.4)!important}
+.scroll-line{background:linear-gradient(180deg,rgba(255,255,255,.25),transparent)!important}
+.hero-ring.r1{border-color:rgba(255,255,255,.1)!important}
+.hero-ring.r2{border-color:rgba(255,255,255,.05)!important}
+.hero-ring.r3{border-color:rgba(255,255,255,.08)!important}
+.hd{background:rgba(255,255,255,.2)!important}
+.tick{border-color:rgba(255,255,255,.15)!important}
+.hero-tag{color:rgba(212,185,140,.8)!important}
+.hero-tag::before{background:rgba(212,185,140,.6)!important}
+
 </style>
 </head>
 <body>
@@ -657,94 +688,14 @@ footer ul li a:hover{color:var(--ink)}
   <div class="tick tl"></div><div class="tick tr2"></div>
   <div class="tick bl"></div><div class="tick br"></div>
 
-  <!-- Illustrated scene -->
-  <div class="hero-bg">
-    <svg viewBox="0 0 1440 900" width="1440" height="900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#e8dfc8"/>
-          <stop offset="45%" stop-color="#d4c8a8"/>
-          <stop offset="80%" stop-color="#c4b890"/>
-          <stop offset="100%" stop-color="#b8a878"/>
-        </linearGradient>
-        <radialGradient id="hsun" cx="72%" cy="28%" r="22%">
-          <stop offset="0%" stop-color="#f5e0a0" stop-opacity=".55"/>
-          <stop offset="100%" stop-color="#f5e0a0" stop-opacity="0"/>
-        </radialGradient>
-        <linearGradient id="hmtn1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#c4b890"/>
-          <stop offset="100%" stop-color="#a8987a"/>
-        </linearGradient>
-        <linearGradient id="hwall" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#b8aa88"/>
-          <stop offset="100%" stop-color="#a09070"/>
-        </linearGradient>
-      </defs>
-      <!-- sky -->
-      <rect width="1440" height="900" fill="url(#hsky)"/>
-      <rect width="1440" height="900" fill="url(#hsun)"/>
-      <!-- Sun circle -->
-      <circle cx="1040" cy="250" r="60" fill="#f5e0a0" opacity=".4"/>
-      <circle cx="1040" cy="250" r="38" fill="#f5e0a0" opacity=".45"/>
-      <!-- Mountain silhouettes — warm taupe -->
-      <path d="M0,480 C80,430 180,395 300,415 C390,430 460,385 580,370 C700,355 780,395 920,382 C1020,372 1120,405 1300,390 C1380,383 1430,395 1440,390 L1440,900 L0,900Z" fill="#b8ac8a" opacity=".55"/>
-      <path d="M0,520 C100,475 220,450 380,468 C490,480 570,442 690,438 C810,434 900,462 1060,448 C1160,438 1280,462 1440,450 L1440,900 L0,900Z" fill="#a89870" opacity=".6"/>
-      <!-- Fortress wall -->
-      <rect x="0" y="590" width="1440" height="310" fill="#c4b890" opacity=".7"/>
-      <!-- Battlements — delicate outlines -->
-      <rect x="0"    y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="48"   y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="96"   y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="144"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="192"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="240"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="288"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="336"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="384"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="432"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="528"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="576"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="720"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="768"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="816"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="864"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="912"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="960"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1008" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1100" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1148" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1196" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1244" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1292" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1340" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
-      <rect x="1388" y="562" width="52" height="32" fill="#c4b890" opacity=".7"/>
-      <!-- Gate tower -->
-      <rect x="474" y="370" width="248" height="224" fill="#b8aa88" opacity=".9"/>
-      <polygon points="474,370 598,318 722,370" fill="#b0a280" opacity=".9"/>
-      <!-- tower outline — thin gold line (MOEWE signature) -->
-      <polyline points="474,370 598,318 722,370" fill="none" stroke="rgba(160,128,64,.4)" stroke-width="1"/>
-      <rect x="474" y="370" width="248" height="224" fill="none" stroke="rgba(160,128,64,.2)" stroke-width=".7"/>
-      <!-- Gate arch -->
-      <path d="M548,594 L548,496 Q598,466 648,496 L648,594 Z" fill="#c4b890" opacity=".7"/>
-      <path d="M550,592 L550,498 Q598,470 646,498 L646,592 Z" fill="none" stroke="rgba(160,128,64,.3)" stroke-width=".7"/>
-      <!-- Tower windows — elegant arched outlines -->
-      <rect x="558" y="406" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.35)" stroke-width=".7"/>
-      <rect x="618" y="406" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.35)" stroke-width=".7"/>
-      <rect x="588" y="394" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.4)" stroke-width=".7"/>
-      <!-- Finial + lantern -->
-      <line x1="598" y1="318" x2="598" y2="300" stroke="rgba(160,128,64,.5)" stroke-width=".8"/>
-      <circle cx="598" cy="296" r="5" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="598" cy="296" r="2" fill="#a08040" opacity=".7"/>
-      <!-- Wall top line -->
-      <line x1="0" y1="594" x2="474" y2="594" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
-      <line x1="722" y1="594" x2="1440" y2="594" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
-      <!-- Foreground ground -->
-      <rect x="0" y="800" width="1440" height="100" fill="#c8ba98" opacity=".5"/>
-    </svg>
+  <!-- YouTube autoplay hero video -->
+  <div class="hero-video-wrap">
+    <iframe src="https://www.youtube.com/embed/r7LC4-ZNnIQ?autoplay=1&mute=1&loop=1&playlist=r7LC4-ZNnIQ&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&start=10"
+      allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <!-- Subtle overlay so text reads clearly -->
-  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(248,245,239,.72) 0%,rgba(248,245,239,.3) 55%,rgba(248,245,239,.05) 100%)"></div>
+    <!-- Subtle overlay so text reads clearly -->
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(10,8,6,.6) 0%,rgba(10,8,6,.25) 58%,rgba(10,8,6,.05) 100%)"></div>
 
   <div class="hero-content">
     <div class="hero-tag">1 Hour from Seoul · UNESCO Heritage · Max 8 Guests</div>
@@ -753,12 +704,12 @@ footer ul li a:hover{color:var(--ink)}
       <em>That's the point.</em>
       <span class="sub-line">Suwon, Korea</span>
     </h1>
-    <p style="font-size:14px;font-weight:300;line-height:1.85;color:var(--mid);max-width:480px;margin-bottom:0">
+    <p style="font-size:14px;font-weight:300;line-height:1.85;color:rgba(240,235,226,.68);max-width:480px;margin-bottom:0">
       Small-group English tours for travellers who want depth, not distance.<br>Local food, hidden stories, real connections.
     </p>
     <div class="hero-btns">
-      <a href="#tours" class="btn-ink">Explore All Tours</a>
-      <a href="#why" class="btn-outline-ink">Why Suwon?</a>
+      <a href="#tours" class="btn-ink" style="background:rgba(248,245,239,.92);color:var(--ink)">Explore All Tours</a>
+      <a href="#why" class="btn-outline-ink" style="color:#f8f5ef;border-color:rgba(248,245,239,.35)">Why Suwon?</a>
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><div class="hstat-n">12+</div><div class="hstat-l">Tour Courses</div></div>
@@ -795,155 +746,22 @@ footer ul li a:hover{color:var(--ink)}
 <div class="mosaic">
   <!-- Cell 1: Fortress dawn (tall) -->
   <div class="mc">
-    <svg viewBox="0 0 400 642" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="m1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8bc98"/><stop offset="60%" stop-color="#a89870"/><stop offset="100%" stop-color="#907858"/></linearGradient></defs>
-      <rect width="400" height="642" fill="url(#m1g)"/>
-      <circle cx="300" cy="120" r="70" fill="#f5e0a0" opacity=".3"/>
-      <path d="M0,320 C60,285 130,265 210,278 C270,288 320,255 400,245 L400,642 L0,642Z" fill="#b0a07a" opacity=".7"/>
-      <path d="M0,380 C80,345 170,328 280,342 C340,350 390,330 400,325 L400,642 L0,642Z" fill="#a09068" opacity=".75"/>
-      <rect x="0" y="430" width="400" height="212" fill="#c0b088" opacity=".7"/>
-      <!-- battlements -->
-      <rect x="5"   y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="38"  y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="71"  y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="104" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="137" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="170" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="237" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="270" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="303" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="336" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
-      <rect x="369" y="406" width="31" height="26" fill="#c0b088" opacity=".7"/>
-      <!-- gate tower -->
-      <rect x="148" y="268" width="104" height="164" fill="#b8a878" opacity=".9"/>
-      <polygon points="148,268 200,240 252,268" fill="#b0a070"/>
-      <polyline points="148,268 200,240 252,268" fill="none" stroke="rgba(160,128,64,.5)" stroke-width="1"/>
-      <path d="M174,432 L174,368 Q200,350 226,368 L226,432 Z" fill="#c0b088" opacity=".7"/>
-      <circle cx="200" cy="248" r="4" fill="#a08040" opacity=".75"/>
-      <circle cx="200" cy="248" r="10" fill="#a08040" opacity=".12"/>
-      <line x1="200" y1="240" x2="200" y2="224" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <line x1="0" y1="432" x2="148" y2="432" stroke="rgba(160,128,64,.3)" stroke-width=".6"/>
-      <line x1="252" y1="432" x2="400" y2="432" stroke="rgba(160,128,64,.3)" stroke-width=".6"/>
-    </svg>
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=800&q=80&auto=format&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">UNESCO Heritage</span><div class="mc-title">Hwaseong Fortress</div></div>
   </div>
   <!-- Cell 2: Galbi -->
   <div class="mc">
-    <svg viewBox="0 0 600 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="m2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8b488"/><stop offset="100%" stop-color="#a89060"/></linearGradient></defs>
-      <rect width="600" height="318" fill="url(#m2g)"/>
-      <rect x="100" y="120" width="400" height="130" rx="3" fill="rgba(160,128,64,.18)" stroke="rgba(160,128,64,.3)" stroke-width=".7"/>
-      <line x1="118" y1="128" x2="118" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="141" y1="128" x2="141" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="164" y1="128" x2="164" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="187" y1="128" x2="187" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="210" y1="128" x2="210" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="233" y1="128" x2="233" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="256" y1="128" x2="256" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="279" y1="128" x2="279" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="302" y1="128" x2="302" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="325" y1="128" x2="325" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="348" y1="128" x2="348" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="371" y1="128" x2="371" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="394" y1="128" x2="394" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="417" y1="128" x2="417" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="440" y1="128" x2="440" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="463" y1="128" x2="463" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="486" y1="128" x2="486" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <line x1="100" y1="162" x2="500" y2="162" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
-      <line x1="100" y1="196" x2="500" y2="196" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
-      <path d="M118,134 Q148,124 178,135 Q178,158 148,165 Q118,158 118,134Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
-      <path d="M196,130 Q234,120 268,132 Q268,156 234,163 Q196,156 196,130Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
-      <path d="M292,133 Q328,123 360,135 Q360,158 328,165 Q292,158 292,133Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
-      <path d="M376,135 Q404,126 430,137 Q430,158 404,164 Q376,157 376,135Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
-      <!-- smoke wisps -->
-      <path d="M148,120 Q140,88 148,62" stroke="rgba(160,128,64,.2)" stroke-width="9" fill="none" stroke-linecap="round"/>
-      <path d="M234,117 Q228,84 235,58" stroke="rgba(160,128,64,.16)" stroke-width="8" fill="none" stroke-linecap="round"/>
-      <path d="M328,119 Q322,86 328,60" stroke="rgba(160,128,64,.18)" stroke-width="8" fill="none" stroke-linecap="round"/>
-    </svg>
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1529042410759-befb1204b468?w=800&q=80&auto=format&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Local Eats</span><div class="mc-title">Suwon Galbi</div></div>
   </div>
   <!-- Cell 3: Night Market (soft beige version) -->
   <div class="mc">
-    <svg viewBox="0 0 600 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <rect width="600" height="318" fill="#d4c8a8"/>
-      <path d="M0,80 L50,58 L100,70 L150,50 L210,64 L260,44 L320,57 L380,40 L440,54 L500,36 L560,50 L600,38 L600,80Z" fill="#c4b890" opacity=".8"/>
-      <path d="M0,72 Q300,60 600,68" stroke="rgba(160,128,64,.4)" stroke-width=".8" fill="none"/>
-      <circle cx="60"  cy="68" r="3" fill="#a08040" opacity=".75"/>
-      <circle cx="150" cy="64" r="3" fill="#a08040" opacity=".75"/>
-      <circle cx="260" cy="62" r="3" fill="#a08040" opacity=".75"/>
-      <circle cx="360" cy="64" r="3" fill="#a08040" opacity=".75"/>
-      <circle cx="460" cy="63" r="3" fill="#a08040" opacity=".75"/>
-      <circle cx="550" cy="62" r="3" fill="#a08040" opacity=".75"/>
-      <!-- stalls -->
-      <rect x="10"  y="80" width="88" height="238" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <path d="M0,80 L108,80 L98,64 L10,64 Z" fill="#b8ac88" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
-      <line x1="54" y1="58" x2="54" y2="72" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <ellipse cx="54" cy="79" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="54" cy="79" r="3" fill="#a08040" opacity=".6"/>
-      <rect x="120" y="72" width="110" height="246" fill="#ccc090" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <path d="M108,72 L242,72 L230,56 L122,56 Z" fill="#bcb484" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
-      <line x1="175" y1="50" x2="175" y2="64" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <ellipse cx="175" cy="71" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="175" cy="71" r="3" fill="#a08040" opacity=".65"/>
-      <rect x="252" y="76" width="115" height="242" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <path d="M240,76 L380,76 L368,60 L254,60 Z" fill="#b8ac88" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
-      <line x1="310" y1="54" x2="310" y2="68" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <ellipse cx="310" cy="75" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="310" cy="75" r="3" fill="#a08040" opacity=".6"/>
-      <rect x="390" y="78" width="105" height="240" fill="#ccc090" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <path d="M380,78 L504,78 L494,62 L392,62 Z" fill="#bcb484"/>
-      <line x1="437" y1="56" x2="437" y2="70" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <ellipse cx="437" cy="77" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="437" cy="77" r="3" fill="#a08040" opacity=".6"/>
-      <rect x="506" y="80" width="94" height="238" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <path d="M496,80 L610,80 L600,64 L508,64 Z" fill="#b8ac88"/>
-      <line x1="553" y1="58" x2="553" y2="72" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
-      <ellipse cx="553" cy="79" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="553" cy="79" r="3" fill="#a08040" opacity=".55"/>
-    </svg>
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1583394293214-4741784f1e5e?w=800&q=80&auto=format&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Insider Guide</span><div class="mc-title">Haenggung Night Market</div></div>
   </div>
   <!-- Cell 4: Wide - street food tour -->
   <div class="mc">
-    <svg viewBox="0 0 1200 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="m4g" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d4c8a8"/><stop offset="50%" stop-color="#c8bc98"/><stop offset="100%" stop-color="#d4c8a8"/></linearGradient></defs>
-      <rect width="1200" height="318" fill="url(#m4g)"/>
-      <!-- street perspective -->
-      <path d="M0,318 L450,160 L750,160 L1200,318Z" fill="rgba(160,128,64,.1)"/>
-      <!-- buildings left -->
-      <rect x="20" y="70" width="160" height="248" fill="#c8bc98" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <rect x="20" y="70" width="160" height="44" fill="#b8ac88"/>
-      <rect x="36" y="128" width="52" height="70" rx="1" fill="rgba(160,128,64,.12)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <rect x="108" y="128" width="52" height="70" rx="1" fill="rgba(160,128,64,.12)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-      <!-- lantern left -->
-      <line x1="192" y1="60" x2="242" y2="76" stroke="rgba(160,128,64,.3)" stroke-width=".8"/>
-      <ellipse cx="242" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="242" cy="80" r="3" fill="#a08040" opacity=".65"/>
-      <!-- middle buildings -->
-      <rect x="380" y="80" width="130" height="238" fill="#ccc090" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
-      <rect x="380" y="80" width="130" height="40" fill="#b8a870"/>
-      <rect x="530" y="88" width="140" height="230" fill="#c8bc98" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
-      <rect x="530" y="88" width="140" height="40" fill="#b8ac88"/>
-      <!-- people silhouettes — warm taupe -->
-      <ellipse cx="485" cy="288" rx="14" ry="22" fill="#b0a070" opacity=".7"/>
-      <circle cx="485" cy="264" r="9" fill="#b0a070" opacity=".7"/>
-      <ellipse cx="525" cy="292" rx="12" ry="20" fill="#b0a070" opacity=".7"/>
-      <circle cx="525" cy="270" r="8" fill="#b0a070" opacity=".7"/>
-      <ellipse cx="680" cy="286" rx="13" ry="21" fill="#b0a070" opacity=".7"/>
-      <circle cx="680" cy="263" r="9" fill="#b0a070" opacity=".7"/>
-      <!-- lantern mid -->
-      <line x1="790" y1="60" x2="740" y2="76" stroke="rgba(160,128,64,.3)" stroke-width=".8"/>
-      <ellipse cx="740" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-      <circle cx="740" cy="80" r="3" fill="#a08040" opacity=".65"/>
-      <!-- right building: tteok display -->
-      <rect x="1000" y="75" width="165" height="243" fill="#ccc090" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
-      <rect x="1000" y="75" width="165" height="44" fill="#a89060"/>
-      <rect x="1012" y="132" width="140" height="10" rx="1" fill="rgba(160,128,64,.25)"/>
-      <ellipse cx="1042" cy="160" rx="20" ry="10" fill="rgba(200,160,160,.55)"/>
-      <ellipse cx="1082" cy="156" rx="20" ry="10" fill="rgba(220,190,120,.55)"/>
-      <ellipse cx="1122" cy="160" rx="20" ry="10" fill="rgba(160,190,130,.55)"/>
-    </svg>
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=1200&q=80&auto=format&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Food Tour</span><div class="mc-title">Haenggung-dong · Local Street</div></div>
   </div>
 </div>
@@ -965,11 +783,21 @@ footer ul li a:hover{color:var(--ink)}
 
 <!-- GALLERY BAND -->
 <div class="gallery-band">
-  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><circle cx="220" cy="70" r="44" fill="#f5e0a0" opacity=".3"/><path d="M0,140 C50,118 110,106 180,115 C230,122 270,104 288,98 L288,260 L0,260Z" fill="#b8a878" opacity=".7"/><rect x="0" y="165" width="288" height="95" fill="#c0b088" opacity=".7"/><rect x="74" y="108" width="92" height="72" fill="#b8a878" opacity=".8"/><polygon points="74,108 120,84 166,108" fill="#b0a070"/><polyline points="74,108 120,84 166,108" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".8"/><circle cx="120" cy="92" r="4" fill="#a08040" opacity=".7"/></svg><div class="gb-ov"><div class="gb-title">Fortress · Dawn</div></div></div>
-  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#d4c8a8"/><rect x="64" y="88" width="160" height="110" rx="2" fill="rgba(160,128,64,.2)" stroke="rgba(160,128,64,.3)" stroke-width=".7"/><line x1="80" y1="96" x2="80" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="102" y1="96" x2="102" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="124" y1="96" x2="124" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="146" y1="96" x2="146" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="168" y1="96" x2="168" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="190" y1="96" x2="190" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="212" y1="96" x2="212" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><path d="M82,100 Q100,92 120,101 Q120,122 100,128 Q80,122 82,100Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.45)" stroke-width=".7"/><path d="M134,97 Q158,88 180,98 Q180,120 158,126 Q134,120 134,97Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.45)" stroke-width=".7"/><path d="M100,88 Q93,62 100,42" stroke="rgba(160,128,64,.2)" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M158,86 Q152,60 158,40" stroke="rgba(160,128,64,.18)" stroke-width="7" fill="none" stroke-linecap="round"/></svg><div class="gb-ov"><div class="gb-title">Suwon Galbi</div></div></div>
-  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><path d="M0,62 Q144,52 288,60" stroke="rgba(160,128,64,.4)" stroke-width=".8" fill="none"/><circle cx="48" cy="59" r="2.5" fill="#a08040" opacity=".7"/><circle cx="112" cy="56" r="2.5" fill="#a08040" opacity=".7"/><circle cx="176" cy="57" r="2.5" fill="#a08040" opacity=".7"/><circle cx="240" cy="59" r="2.5" fill="#a08040" opacity=".7"/><rect x="12" y="68" width="80" height="192" fill="#c0b488" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M4,68 L100,68 L92,54 L12,54 Z" fill="#b8ac84"/><rect x="104" y="62" width="90" height="198" fill="#ccc498" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M96,62 L204,62 L196,48 L100,48 Z" fill="#c0b88c"/><rect x="206" y="66" width="82" height="194" fill="#c0b888" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M198,66 L296,66 L288,52 L202,52 Z" fill="#b8b080"/><line x1="52" y1="46" x2="52" y2="60" stroke="rgba(160,128,64,.55)" stroke-width=".7"/><ellipse cx="52" cy="66" rx="5" ry="7" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/><circle cx="52" cy="66" r="2.5" fill="#a08040" opacity=".6"/><line x1="149" y1="42" x2="149" y2="55" stroke="rgba(160,128,64,.55)" stroke-width=".7"/><ellipse cx="149" cy="61" rx="5" ry="7" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/><circle cx="149" cy="61" r="2.5" fill="#a08040" opacity=".6"/></svg><div class="gb-ov"><div class="gb-title">Night Market</div></div></div>
-  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#d0c8aa"/><path d="M0,100 C40,80 90,68 150,78 C200,86 250,68 288,62 L288,260 L0,260Z" fill="#c4b890" opacity=".7"/><circle cx="60" cy="90" r="24" fill="rgba(230,180,180,.5)"/><circle cx="90" cy="75" r="18" fill="rgba(230,180,180,.45)"/><circle cx="38" cy="80" r="14" fill="rgba(240,190,200,.45)"/><circle cx="118" cy="86" r="20" fill="rgba(230,180,180,.4)"/><circle cx="148" cy="70" r="14" fill="rgba(240,190,200,.45)"/><circle cx="190" cy="80" r="16" fill="rgba(230,180,180,.4)"/></svg><div class="gb-ov"><div class="gb-title">Cherry Blossoms</div></div></div>
-  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><path d="M0,100 C60,78 130,64 200,76 C240,84 270,65 288,60 L288,260 L0,260Z" fill="#beb07a" opacity=".7"/><path d="M0,130 C80,108 160,95 288,108 L288,260 L0,260Z" fill="#b0a070" opacity=".7"/><circle cx="90" cy="86" r="28" fill="rgba(180,110,30,.45)"/><circle cx="90" cy="86" r="16" fill="rgba(190,120,30,.4)"/><circle cx="160" cy="74" r="22" fill="rgba(180,110,30,.4)"/><circle cx="220" cy="90" r="24" fill="rgba(170,100,25,.4)"/><circle cx="50" cy="106" r="18" fill="rgba(190,120,30,.4)"/><line x1="90" y1="114" x2="90" y2="200" stroke="#806020" stroke-width="2.5"/><line x1="160" y1="96" x2="160" y2="200" stroke="#806020" stroke-width="2"/><line x1="220" y1="114" x2="220" y2="200" stroke="#806020" stroke-width="2"/></svg><div class="gb-ov"><div class="gb-title">Autumn Foliage</div></div></div>
+  <div class="gb">
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="gb-ov"><div class="gb-title">Fortress · Dawn</div></div></div>
+  <div class="gb">
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1529042410759-befb1204b468?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="gb-ov"><div class="gb-title">Suwon Galbi</div></div></div>
+  <div class="gb">
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1583394293214-4741784f1e5e?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="gb-ov"><div class="gb-title">Night Market</div></div></div>
+  <div class="gb">
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1522383225653-ed111181a951?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="gb-ov"><div class="gb-title">Cherry Blossoms</div></div></div>
+  <div class="gb">
+    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="gb-ov"><div class="gb-title">Autumn Foliage</div></div></div>
 </div>
 
 <!-- TOUR COURSES -->
@@ -1082,23 +910,10 @@ footer ul li a:hover{color:var(--ink)}
   <p class="sec-sub">Every stop on your tour supports a real Suwon local.</p>
   <div class="partner-card">
     <div class="partner-img">
-      <svg viewBox="0 0 340 280" width="340" height="280" xmlns="http://www.w3.org/2000/svg">
-        <rect width="340" height="280" fill="#d4c8a8"/>
-        <path d="M0,100 C50,78 110,65 180,76 C230,84 285,66 340,60 L340,280 L0,280Z" fill="#c4b890" opacity=".7"/>
-        <rect x="40" y="80" width="260" height="200" fill="#c8bc98" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
-        <rect x="40" y="80" width="260" height="52" fill="#b8a870"/>
-        <text x="170" y="114" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="rgba(248,245,239,.85)" font-style="italic">Micasa</text>
-        <rect x="54" y="148" width="80" height="100" rx="1" fill="rgba(160,128,64,.1)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-        <rect x="206" y="148" width="80" height="100" rx="1" fill="rgba(160,128,64,.1)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
-        <ellipse cx="30" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-        <circle cx="30" cy="80" r="3" fill="#a08040" opacity=".6"/>
-        <ellipse cx="310" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
-        <circle cx="310" cy="80" r="3" fill="#a08040" opacity=".6"/>
-        <path d="M0,72 Q170,63 340,70" stroke="rgba(160,128,64,.3)" stroke-width=".6" fill="none"/>
-        <circle cx="60" cy="70" r="2" fill="#a08040" opacity=".6"/>
-        <circle cx="170" cy="66" r="2" fill="#a08040" opacity=".6"/>
-        <circle cx="280" cy="69" r="2" fill="#a08040" opacity=".6"/>
-      </svg>
+      <img
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=680&q=85&auto=format&fit=crop"
+        alt="Partner restaurant" style="width:100%;height:100%;min-height:260px;object-fit:cover;display:block;filter:sepia(8%) saturate(85%)">
+      
     </div>
     <div class="partner-info">
       <span class="ptag">Partner Restaurant</span>
@@ -1113,31 +928,10 @@ footer ul li a:hover{color:var(--ink)}
 <!-- PHOTO CTA -->
 <div class="photo-cta fade-up">
   <div class="pcta-bg">
-    <svg viewBox="0 0 1440 520" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="ctag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8bc98"/><stop offset="60%" stop-color="#b8a878"/><stop offset="100%" stop-color="#a89860"/></linearGradient></defs>
-      <rect width="1440" height="520" fill="url(#ctag)"/>
-      <circle cx="1100" cy="140" r="110" fill="#f5e0a0" opacity=".2"/>
-      <path d="M0,260 C130,215 280,192 460,208 C600,220 720,185 900,178 C1040,172 1180,198 1440,184 L1440,520 L0,520Z" fill="#b8a870" opacity=".55"/>
-      <rect x="0" y="328" width="1440" height="192" fill="#c8bc98" opacity=".6"/>
-      <!-- fortress silhouette -->
-      <rect x="380" y="210" width="200" height="140" fill="#b8a878" opacity=".7"/>
-      <polygon points="380,210 480,172 580,210" fill="#b0a070" opacity=".7"/>
-      <polyline points="380,210 480,172 580,210" fill="none" stroke="rgba(160,128,64,.4)" stroke-width="1"/>
-      <circle cx="480" cy="180" r="5" fill="#a08040" opacity=".6"/>
-      <line x1="480" y1="172" x2="480" y2="157" stroke="rgba(160,128,64,.5)" stroke-width=".8"/>
-      <rect x="0" y="320" width="1440" height="32" fill="#c0b488" opacity=".7"/>
-      <!-- battlements minimal -->
-      <rect x="50"   y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="90"   y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="130"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="620"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="660"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="1050" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="1090" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <rect x="1350" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
-      <line x1="0" y1="322" x2="380" y2="322" stroke="rgba(160,128,64,.28)" stroke-width=".6"/>
-      <line x1="580" y1="322" x2="1440" y2="322" stroke="rgba(160,128,64,.28)" stroke-width=".6"/>
-    </svg>
+    <img
+      src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1440&q=80&auto=format&fit=crop"
+      alt="Suwon Korea" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(12%) saturate(80%) brightness(.88)">
+    
   </div>
   <div class="pcta-ov"></div>
   <div class="pcta-ring1"></div>
@@ -1216,7 +1010,7 @@ window.addEventListener('scroll',()=>{
 
 // video
 function playVideo(){
-  document.getElementById('vp').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1" allow="autoplay;encrypted-media" allowfullscreen style="border:none;display:block;position:absolute;inset:0"></iframe>';
+  document.getElementById('vp').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/TyzBFlm_awo?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media" allowfullscreen style="border:none;display:block;position:absolute;inset:0"></iframe>';
 }
 
 // tabs
