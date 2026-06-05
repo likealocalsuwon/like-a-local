@@ -3,1005 +3,1262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Like a Local — Suwon Small-Group Tours</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<title>Like a Local — Suwon</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & BASE ─────────────────────────────────────────────────────────── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: #faf8f3;
-  color: #1a1612;
-  overflow-x: hidden;
+/* ══════════════════════════════════════════
+   TOKENS — LOEWE × MOEWE × LaL
+   beige/cream palette, ultra-thin gold lines
+══════════════════════════════════════════ */
+:root{
+  --cream:  #f8f5ef;
+  --ivory:  #f2ede4;
+  --beige:  #e8e0d0;
+  --sand:   #d4c8b0;
+  --warm:   #c4b898;
+  --gold:   #a08040;
+  --gold2:  rgba(160,128,64,.3);
+  --ink:    #1a1510;
+  --char:   #2e2618;
+  --mid:    #7a6e5e;
+  --faint:  rgba(26,21,16,.1);
+  --serif:  'Cormorant Garamond',serif;
+  --sans:   'Montserrat',sans-serif;
+  --kr:     'Noto Sans KR',sans-serif;
 }
-img { display: block; max-width: 100%; }
-a { text-decoration: none; color: inherit; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden}
 
-/* ── TOKENS ───────────────────────────────────────────────────────────────── */
-:root {
-  --cream:   #faf8f3;
-  --beige:   #f0ead8;
-  --gold:    #a08040;
-  --gold-lt: rgba(160,128,64,0.35);
-  --dark:    #1a1612;
-  --mid:     rgba(26,22,18,0.55);
-  --faint:   rgba(26,22,18,0.18);
-  --serif:   'Cormorant Garamond', serif;
-  --sans:    'Montserrat', sans-serif;
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 60px;height:68px;
+  background:rgba(248,245,239,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:.5px solid var(--sand);
+  transition:all .35s;
 }
+.nav-logo{display:flex;align-items:baseline;gap:.5rem;text-decoration:none}
+.nav-lal{
+  font-family:var(--serif);font-weight:300;font-size:22px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink);
+}
+.nav-lal em{font-style:italic;color:var(--gold)}
+.nav-sub{
+  font-family:var(--sans);font-weight:200;font-size:9px;
+  letter-spacing:.48em;text-transform:uppercase;color:var(--mid);
+}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center}
+.nav-links a{
+  font-family:var(--sans);font-size:10px;font-weight:300;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--mid);
+  text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  font-size:10px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ink)!important;border:.5px solid var(--ink);
+  padding:10px 24px;transition:all .2s;
+}
+.nav-cta:hover{background:var(--ink);color:var(--cream)!important}
 
-/* ── NAV ──────────────────────────────────────────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(250,248,243,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid var(--gold-lt);
-  padding: 0 60px;
-  height: 64px;
-  display: flex; align-items: center; justify-content: space-between;
+/* ══ HERO — FULLSCREEN ══ */
+.hero{
+  position:relative;width:100%;height:100vh;
+  overflow:hidden;display:flex;align-items:flex-end;
+  background:var(--cream);
 }
-.nav-logo {
-  font-family: var(--serif);
-  font-weight: 300; font-size: 20px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--dark);
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-bg svg{width:100%;height:100%;display:block}
+/* thin geometric ring overlays */
+.hero-ring{
+  position:absolute;border-radius:50%;pointer-events:none;
 }
-.nav-logo em { font-style: italic; color: var(--gold); }
-.nav-links { display: flex; gap: 36px; align-items: center; }
-.nav-links a {
-  font-size: 10px; font-weight: 300;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--mid);
-  transition: color 0.2s;
+.hero-ring.r1{width:680px;height:680px;border:.5px solid rgba(160,128,64,.18);top:50%;left:50%;transform:translate(-50%,-54%)}
+.hero-ring.r2{width:920px;height:920px;border:.25px solid rgba(160,128,64,.09);top:50%;left:50%;transform:translate(-50%,-54%)}
+.hero-ring.r3{width:440px;height:440px;border:.4px solid rgba(160,128,64,.12);top:50%;left:50%;transform:translate(-50%,-54%)}
+.hero-diag{
+  position:absolute;width:140%;height:.4px;
+  background:linear-gradient(90deg,transparent,rgba(160,128,64,.12),transparent);
+  top:48%;left:50%;transform:translate(-50%,-50%) rotate(-12deg);
+  pointer-events:none;
 }
-.nav-links a:hover { color: var(--dark); }
-.nav-cta {
-  font-size: 10px; font-weight: 400;
-  letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--gold) !important;
-  border: 0.5px solid var(--gold-lt);
-  padding: 9px 22px;
-  transition: all 0.2s !important;
-}
-.nav-cta:hover { background: var(--gold); color: #fff !important; }
+/* dot grid */
+.hero-dots{position:absolute;display:grid;grid-template-columns:repeat(5,10px);gap:8px;pointer-events:none}
+.hero-dots.tr{top:90px;right:64px}
+.hd{width:1.4px;height:1.4px;background:rgba(160,128,64,.3);border-radius:50%}
+/* tick corners */
+.tick{position:absolute;width:18px;height:18px;pointer-events:none}
+.tick.tl{top:84px;left:60px;border-top:.5px solid var(--gold2);border-left:.5px solid var(--gold2)}
+.tick.tr2{top:84px;right:60px;border-top:.5px solid var(--gold2);border-right:.5px solid var(--gold2)}
+.tick.bl{bottom:30px;left:60px;border-bottom:.5px solid var(--gold2);border-left:.5px solid var(--gold2)}
+.tick.br{bottom:30px;right:60px;border-bottom:.5px solid var(--gold2);border-right:.5px solid var(--gold2)}
 
-/* ── HERO ─────────────────────────────────────────────────────────────────── */
-.hero {
-  min-height: 100vh;
-  background: #0d0c08;
-  position: relative;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  overflow: hidden;
-  padding: 120px 60px 80px;
+/* hero content — LOEWE style: bottom-left, large serif, airy */
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 80px 80px;
+  max-width:820px;
 }
-/* geometric rings */
-.hero-ring {
-  position: absolute; border-radius: 50%;
-  pointer-events: none;
+.hero-tag{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;
+  letter-spacing:.44em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:24px;display:flex;align-items:center;gap:14px;
 }
-.hero-ring.r1 { width: 700px; height: 700px; border: 0.6px solid rgba(212,185,140,0.15); top: 50%; left: 50%; transform: translate(-50%,-52%); }
-.hero-ring.r2 { width: 960px; height: 960px; border: 0.3px solid rgba(212,185,140,0.07); top: 50%; left: 50%; transform: translate(-50%,-52%); }
-.hero-ring.r3 { width: 460px; height: 460px; border: 0.4px solid rgba(212,185,140,0.09); top: 50%; left: 50%; transform: translate(-50%,-52%); }
-.hero-diag {
-  position: absolute; width: 140%; height: 0.4px;
-  background: linear-gradient(90deg,transparent,rgba(212,185,140,0.1),transparent);
-  top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-14deg);
-  pointer-events: none;
+.hero-tag::before{content:'';display:block;width:32px;height:.5px;background:var(--gold)}
+.hero-h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(56px,7vw,96px);
+  line-height:.97;color:var(--ink);
+  letter-spacing:-.01em;margin-bottom:10px;
 }
-/* dot grid corners */
-.hero-dots {
-  position: absolute; display: grid;
-  grid-template-columns: repeat(5,10px); gap: 8px;
-  pointer-events: none;
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-h1 .sub-line{
+  display:block;font-size:clamp(22px,2.8vw,36px);
+  color:var(--mid);font-family:var(--serif);font-style:italic;
+  font-weight:300;margin-top:.2em;
 }
-.hero-dots.tl { top: 80px; left: 60px; }
-.hero-dots.tr { top: 80px; right: 60px; }
-.hd { width: 1.4px; height: 1.4px; background: rgba(212,185,140,0.25); border-radius: 50%; }
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;margin:36px 0 48px;
+}
+.btn-ink{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;letter-spacing:.3em;
+  text-transform:uppercase;padding:14px 36px;
+  background:var(--ink);color:var(--cream);border:none;cursor:pointer;
+  text-decoration:none;transition:all .25s;display:inline-block;
+}
+.btn-ink:hover{background:var(--char)}
+.btn-outline-ink{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;letter-spacing:.3em;
+  text-transform:uppercase;padding:14px 36px;
+  background:transparent;color:var(--ink);
+  border:.5px solid rgba(26,21,16,.35);cursor:pointer;
+  text-decoration:none;transition:all .25s;display:inline-block;
+}
+.btn-outline-ink:hover{background:var(--ink);color:var(--cream)}
+/* stats — thin line separated */
+.hero-stats{
+  display:flex;gap:0;
+  border-top:.5px solid var(--sand);
+  padding-top:28px;width:fit-content;min-width:460px;
+}
+.hero-stat{flex:1;padding-right:32px}
+.hero-stat+.hero-stat{padding-left:32px;border-left:.5px solid var(--sand)}
+.hstat-n{
+  font-family:var(--serif);font-size:32px;font-weight:300;
+  color:var(--ink);line-height:1;margin-bottom:5px;
+}
+.hstat-l{
+  font-family:var(--sans);font-size:8.5px;font-weight:200;
+  letter-spacing:.34em;text-transform:uppercase;color:var(--mid);
+}
+/* scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:36px;right:64px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.scroll-hint span{
+  font-family:var(--sans);font-size:8.5px;font-weight:200;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--mid);
+}
+.scroll-line{
+  width:.5px;height:40px;
+  background:linear-gradient(180deg,var(--sand),transparent);
+  animation:scrollDrop 1.8s ease-in-out infinite;
+}
+@keyframes scrollDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-.hero-content { position: relative; z-index: 2; text-align: center; max-width: 820px; }
-.hero-eyebrow {
-  font-size: 10px; font-weight: 300;
-  letter-spacing: 0.48em; text-transform: uppercase;
-  color: rgba(212,185,140,0.6);
-  margin-bottom: 28px;
-  display: flex; align-items: center; justify-content: center; gap: 16px;
-}
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: ''; display: block; width: 40px; height: 0.5px;
-  background: rgba(212,185,140,0.4);
-}
-.hero-title {
-  font-family: var(--serif);
-  font-weight: 300; font-size: clamp(64px,8vw,110px);
-  line-height: 0.95; color: #f0ebe2;
-  letter-spacing: -0.01em; margin-bottom: 8px;
-}
-.hero-title em { font-style: italic; color: #d4b98c; }
-.hero-sub {
-  font-family: var(--serif); font-style: italic;
-  font-size: clamp(18px,2.4vw,28px); font-weight: 300;
-  color: rgba(240,235,226,0.42); margin-bottom: 48px;
-  letter-spacing: 0.04em;
-}
-.hero-desc {
-  font-size: 13px; font-weight: 300; line-height: 1.9;
-  color: rgba(240,235,226,0.62); max-width: 520px;
-  margin: 0 auto 52px; letter-spacing: 0.02em;
-}
-.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn-primary {
-  font-size: 10px; font-weight: 400; letter-spacing: 0.32em;
-  text-transform: uppercase; color: #0d0c08;
-  background: #d4b98c; padding: 16px 40px;
-  border: none; cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-primary:hover { background: #c8a96e; }
-.btn-outline {
-  font-size: 10px; font-weight: 300; letter-spacing: 0.32em;
-  text-transform: uppercase; color: rgba(212,185,140,0.8);
-  background: transparent; padding: 16px 40px;
-  border: 0.5px solid rgba(212,185,140,0.4); cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-outline:hover { border-color: rgba(212,185,140,0.7); color: #d4b98c; }
-
-/* stats bar */
-.hero-stats {
-  position: relative; z-index: 2;
-  display: flex; gap: 0; margin-top: 80px;
-  border-top: 0.5px solid rgba(212,185,140,0.18);
-  padding-top: 40px; width: 100%; max-width: 600px;
-}
-.hero-stat { flex: 1; text-align: center; }
-.hero-stat + .hero-stat { border-left: 0.5px solid rgba(212,185,140,0.15); }
-.stat-n {
-  font-family: var(--serif); font-weight: 300; font-size: 36px;
-  color: #d4b98c; line-height: 1; margin-bottom: 6px;
-}
-.stat-l {
-  font-size: 9px; font-weight: 200; letter-spacing: 0.36em;
-  text-transform: uppercase; color: rgba(240,235,226,0.32);
-}
-/* gold bottom line */
-.hero::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,transparent,rgba(212,185,140,0.45),transparent);
-}
-
-/* ── SECTION BASE ─────────────────────────────────────────────────────────── */
-section { padding: 100px 60px; }
-.section-eyebrow {
-  font-size: 9.5px; font-weight: 300; letter-spacing: 0.46em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 14px;
-}
-.section-eyebrow::before {
-  content: ''; display: block; width: 32px; height: 0.5px;
-  background: var(--gold);
-}
-.section-title {
-  font-family: var(--serif); font-weight: 300;
-  font-size: clamp(36px,4vw,56px); line-height: 1.05;
-  color: var(--dark); margin-bottom: 12px;
-}
-.section-title em { font-style: italic; color: var(--gold); }
-.section-sub {
-  font-family: var(--serif); font-style: italic; font-weight: 300;
-  font-size: 18px; color: var(--mid); margin-bottom: 60px;
-}
-.sep { width: 48px; height: 0.5px; background: var(--gold-lt); margin: 24px 0; }
-
-/* ── WHY US ───────────────────────────────────────────────────────────────── */
-.why { background: var(--cream); }
-.why-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 1px; background: var(--faint);
-  border: 0.5px solid var(--faint);
-}
-.why-item {
-  background: var(--cream); padding: 40px 36px;
-}
-.why-num {
-  font-family: var(--serif); font-size: 48px; font-weight: 300;
-  color: rgba(160,128,64,0.2); line-height: 1; margin-bottom: 16px;
-}
-.why-title {
-  font-size: 11px; font-weight: 400; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--dark); margin-bottom: 12px;
-}
-.why-text {
-  font-size: 13px; font-weight: 300; line-height: 1.8;
-  color: var(--mid);
+/* gold bottom line on hero */
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:.5px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:3;
 }
 
-/* ── COURSES ──────────────────────────────────────────────────────────────── */
-.courses { background: var(--beige); }
-.tab-row {
-  display: flex; gap: 0; flex-wrap: wrap;
-  border-bottom: 0.5px solid var(--faint);
-  margin-bottom: 48px;
+/* ══ SECTION COMMONS ══ */
+.sec{padding:100px 80px}
+.sec-tag{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;
+  letter-spacing:.44em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:14px;display:flex;align-items:center;gap:14px;
 }
-.tab-btn {
-  font-size: 9.5px; font-weight: 300; letter-spacing: 0.32em;
-  text-transform: uppercase; color: var(--mid);
-  background: none; border: none; cursor: pointer;
-  padding: 14px 28px;
-  border-bottom: 1.5px solid transparent;
-  transition: all 0.2s;
+.sec-tag::before{content:'';display:block;width:32px;height:.5px;background:var(--gold)}
+.sec-h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(36px,4vw,58px);line-height:1.02;
+  color:var(--ink);margin-bottom:8px;
 }
-.tab-btn:hover { color: var(--dark); }
-.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
-  gap: 1px; background: var(--faint);
-  border: 0.5px solid var(--faint);
+.sec-h2 em{font-style:italic;color:var(--gold)}
+.sec-sub{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:18px;color:var(--mid);margin-bottom:60px;
 }
-.course-card {
-  background: var(--cream); padding: 36px 32px;
-  display: flex; flex-direction: column; gap: 12px;
-  cursor: pointer; transition: background 0.2s;
-  position: relative;
-}
-.course-card:hover { background: #f5f0e4; }
-.course-tag {
-  font-size: 9px; font-weight: 300; letter-spacing: 0.36em;
-  text-transform: uppercase; color: var(--gold);
-}
-.course-name {
-  font-family: var(--serif); font-weight: 300; font-size: 26px;
-  color: var(--dark); line-height: 1.1;
-}
-.course-name em { font-style: italic; }
-.course-desc {
-  font-size: 12px; font-weight: 300; line-height: 1.75;
-  color: var(--mid); flex: 1;
-}
-.course-meta {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  padding-top: 16px; border-top: 0.5px solid var(--faint);
-}
-.course-meta-item { display: flex; flex-direction: column; gap: 3px; }
-.course-meta-label {
-  font-size: 8px; font-weight: 200; letter-spacing: 0.36em;
-  text-transform: uppercase; color: rgba(26,22,18,0.35);
-}
-.course-meta-val {
-  font-size: 12px; font-weight: 300; color: var(--dark);
-}
-.course-price {
-  font-family: var(--serif); font-size: 22px; font-weight: 300;
-  color: var(--gold); margin-top: 4px;
-}
-.course-book {
-  margin-top: 8px; align-self: flex-start;
-  font-size: 9px; font-weight: 400; letter-spacing: 0.28em;
-  text-transform: uppercase; color: var(--gold);
-  background: none; border: 0.5px solid var(--gold-lt);
-  padding: 10px 24px; cursor: pointer;
-  transition: all 0.2s;
-}
-.course-book:hover { background: var(--gold); color: #fff; }
-
-/* ── PARTNER ──────────────────────────────────────────────────────────────── */
-.partners { background: var(--cream); }
-.partner-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
-  gap: 1px; background: var(--faint); border: 0.5px solid var(--faint);
-}
-.partner-card {
-  background: var(--cream); padding: 40px 36px;
-}
-.partner-tag {
-  font-size: 9px; font-weight: 200; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
-}
-.partner-name {
-  font-family: var(--serif); font-size: 28px; font-weight: 300;
-  color: var(--dark); margin-bottom: 6px; line-height: 1.1;
-}
-.partner-name em { font-style: italic; }
-.partner-kr {
-  font-size: 12px; font-weight: 300; color: var(--mid);
-  margin-bottom: 18px; letter-spacing: 0.04em;
-}
-.partner-sep { width: 32px; height: 0.5px; background: var(--gold-lt); margin-bottom: 18px; }
-.partner-desc {
-  font-size: 13px; font-weight: 300; line-height: 1.8;
-  color: var(--mid);
+.rule{
+  width:48px;height:.5px;background:var(--gold);
+  margin:20px 0;opacity:.5;
 }
 
-/* ── ABOUT ────────────────────────────────────────────────────────────────── */
-.about {
-  background: #0d0c08;
-  position: relative; overflow: hidden;
+/* ══ VIDEO STRIP ══ */
+.video-strip{
+  background:var(--ivory);
+  border-top:.5px solid var(--beige);
+  border-bottom:.5px solid var(--beige);
+  display:grid;grid-template-columns:1fr 1.5fr;gap:0;
 }
-.about-ring {
-  position: absolute; border-radius: 50%; pointer-events: none;
+.vs-text{
+  padding:80px;display:flex;flex-direction:column;
+  justify-content:center;border-right:.5px solid var(--beige);
 }
-.about-ring.r1 { width: 600px; height: 600px; border: 0.5px solid rgba(212,185,140,0.1); right: -100px; top: 50%; transform: translateY(-50%); }
-.about-ring.r2 { width: 900px; height: 900px; border: 0.3px solid rgba(212,185,140,0.05); right: -250px; top: 50%; transform: translateY(-50%); }
-.about-inner {
-  position: relative; z-index: 2;
-  max-width: 640px;
+.vs-h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(28px,3vw,44px);line-height:1.05;
+  color:var(--ink);margin-bottom:16px;
 }
-.about .section-eyebrow { color: rgba(212,185,140,0.6); }
-.about .section-eyebrow::before { background: rgba(212,185,140,0.4); }
-.about .section-title { color: #f0ebe2; }
-.about .section-title em { color: #d4b98c; }
-.about .section-sub { color: rgba(240,235,226,0.42); }
-.about-text {
-  font-size: 14px; font-weight: 300; line-height: 2;
-  color: rgba(240,235,226,0.65); margin-bottom: 20px;
+.vs-h2 em{font-style:italic;color:var(--gold)}
+.vs-desc{
+  font-size:13px;font-weight:300;line-height:1.85;
+  color:var(--mid);margin-bottom:32px;max-width:380px;
 }
-.about-contact {
-  display: flex; flex-direction: column; gap: 12px;
-  margin-top: 40px;
+.vs-embed{
+  position:relative;overflow:hidden;aspect-ratio:16/9;
+  background:var(--beige);cursor:pointer;
 }
-.about-contact-row { display: flex; gap: 16px; align-items: baseline; }
-.about-contact-label {
-  font-size: 8.5px; font-weight: 200; letter-spacing: 0.4em;
-  text-transform: uppercase; color: rgba(212,185,140,0.45);
-  min-width: 72px;
+.vs-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.vs-placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;
+  background:var(--beige);transition:background .3s;
 }
-.about-contact-val {
-  font-size: 13px; font-weight: 300;
-  color: rgba(240,235,226,0.72);
+.vs-placeholder:hover{background:var(--sand)}
+.play-ring{
+  width:64px;height:64px;border-radius:50%;
+  border:.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
 }
-
-/* ── BOOKING MODAL ────────────────────────────────────────────────────────── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 999;
-  background: rgba(13,12,8,0.75); backdrop-filter: blur(6px);
-  align-items: center; justify-content: center; padding: 24px;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--cream); max-width: 560px; width: 100%;
-  max-height: 90vh; overflow-y: auto;
-  border: 0.5px solid var(--faint);
-  position: relative;
-}
-.modal-header {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  padding: 36px 40px 28px;
-  border-bottom: 0.5px solid var(--faint);
-}
-.modal-tag {
-  font-size: 9px; font-weight: 200; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--gold);
-  display: block; margin-bottom: 8px;
-}
-.modal-title {
-  font-family: var(--serif); font-size: 28px; font-weight: 300;
-  color: var(--dark); line-height: 1.1;
-}
-.modal-close {
-  background: none; border: none; cursor: pointer;
-  font-size: 18px; color: var(--mid); padding: 4px;
-  line-height: 1; flex-shrink: 0; margin-left: 16px;
-}
-.modal-close:hover { color: var(--dark); }
-.modal-body { padding: 32px 40px 40px; }
-.modal-price-box {
-  background: var(--beige); padding: 16px 20px;
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 28px;
-}
-.modal-price-box .pname {
-  font-size: 11px; font-weight: 300; letter-spacing: 0.12em; color: var(--mid);
-}
-.modal-price-box .pprice {
-  font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--gold);
-}
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
-.form-group label {
-  font-size: 8.5px; font-weight: 300; letter-spacing: 0.36em;
-  text-transform: uppercase; color: var(--mid);
-}
-.form-group input, .form-group select, .form-group textarea {
-  font-family: var(--sans); font-size: 13px; font-weight: 300;
-  color: var(--dark); background: var(--cream);
-  border: 0.5px solid rgba(26,22,18,0.2);
-  padding: 11px 14px; outline: none;
-  transition: border-color 0.2s;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--gold);
-}
-.form-group textarea { resize: vertical; min-height: 80px; }
-.form-submit {
-  width: 100%; padding: 16px;
-  font-family: var(--sans); font-size: 10px; font-weight: 400;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: #fff; background: var(--gold);
-  border: none; cursor: pointer; margin-top: 8px;
-  transition: background 0.2s;
-}
-.form-submit:hover { background: #8a6c34; }
-.form-note {
-  font-size: 11px; font-weight: 300; color: var(--mid);
-  text-align: center; margin-top: 14px; line-height: 1.6;
+.vs-placeholder:hover .play-ring{background:var(--gold)}
+.play-ring svg{width:20px;height:20px;fill:var(--gold);margin-left:4px;transition:fill .2s}
+.vs-placeholder:hover .play-ring svg{fill:var(--cream)}
+.vs-vlabel{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;
+  letter-spacing:.36em;text-transform:uppercase;color:var(--mid);
 }
 
-/* success state */
-.modal-success {
-  display: none; padding: 60px 40px; text-align: center;
+/* ══ PHOTO MOSAIC ══ */
+.mosaic{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:320px 320px;gap:2px;background:var(--beige)}
+.mc{position:relative;overflow:hidden;cursor:pointer}
+.mc:first-child{grid-column:1/2;grid-row:1/3}
+.mc:nth-child(2){grid-column:2/3;grid-row:1/2}
+.mc:nth-child(3){grid-column:3/4;grid-row:1/2}
+.mc:nth-child(4){grid-column:2/4;grid-row:2/3}
+.mc svg{width:100%;height:100%;display:block;transition:transform .6s ease}
+.mc:hover svg{transform:scale(1.04)}
+.mc-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 24px;
+  background:linear-gradient(to top,rgba(26,21,16,.6),transparent);
+  opacity:0;transform:translateY(6px);
+  transition:all .35s;
 }
-.modal-success.show { display: block; }
-.success-icon {
-  font-size: 32px; margin-bottom: 20px; color: var(--gold);
+.mc:hover .mc-caption{opacity:1;transform:translateY(0)}
+.mc-tag{
+  font-family:var(--sans);font-size:9px;font-weight:300;
+  letter-spacing:.38em;text-transform:uppercase;color:rgba(248,245,239,.65);
+  display:block;margin-bottom:4px;
 }
-.success-title {
-  font-family: var(--serif); font-size: 32px; font-weight: 300;
-  color: var(--dark); margin-bottom: 12px;
-}
-.success-sub { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.8; }
-
-/* ── FOOTER ───────────────────────────────────────────────────────────────── */
-footer {
-  background: #0d0c08;
-  padding: 60px;
-  border-top: 0.5px solid rgba(212,185,140,0.2);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 24px;
-}
-.footer-logo {
-  font-family: var(--serif); font-weight: 300; font-size: 18px;
-  letter-spacing: 0.24em; text-transform: uppercase; color: #f0ebe2;
-}
-.footer-logo em { font-style: italic; color: #d4b98c; }
-.footer-links {
-  display: flex; gap: 32px; flex-wrap: wrap;
-}
-.footer-links a {
-  font-size: 9px; font-weight: 200; letter-spacing: 0.32em;
-  text-transform: uppercase; color: rgba(240,235,226,0.38);
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: rgba(212,185,140,0.7); }
-.footer-copy {
-  font-size: 10px; font-weight: 200;
-  color: rgba(240,235,226,0.22); letter-spacing: 0.08em;
-  width: 100%;
-}
-.footer-gold-line {
-  width: 100%; height: 0.5px;
-  background: linear-gradient(90deg,transparent,rgba(212,185,140,0.35),transparent);
-  margin-bottom: 40px;
+.mc-title{
+  font-family:var(--serif);font-weight:300;font-size:22px;
+  color:#f8f5ef;
 }
 
-/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  nav { padding: 0 24px; }
-  .nav-links { display: none; }
-  section { padding: 72px 24px; }
-  .hero { padding: 100px 24px 64px; }
-  .form-row { grid-template-columns: 1fr; }
-  .modal-body { padding: 24px; }
-  .modal-header { padding: 24px 24px 20px; }
-  footer { padding: 40px 24px; }
+/* ══ WHY SUWON ══ */
+.why{background:var(--ivory);border-top:.5px solid var(--beige);border-bottom:.5px solid var(--beige)}
+.why-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:.5px solid var(--beige);
+}
+.why-item{
+  padding:40px 36px;border-right:.5px solid var(--beige);
+  border-bottom:.5px solid var(--beige);
+  transition:background .25s;
+}
+.why-item:nth-child(3),.why-item:nth-child(6){border-right:none}
+.why-item:nth-child(4),.why-item:nth-child(5),.why-item:nth-child(6){border-bottom:none}
+.why-item:hover{background:var(--beige)}
+.why-num{
+  font-family:var(--serif);font-size:48px;font-weight:300;
+  color:rgba(160,128,64,.18);line-height:1;margin-bottom:18px;
+}
+.why-title{
+  font-family:var(--sans);font-size:10.5px;font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:12px;
+}
+.why-text{font-size:13px;font-weight:300;line-height:1.85;color:var(--mid)}
+
+/* ══ GALLERY BAND ══ */
+.gallery-band{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  height:260px;gap:2px;background:var(--beige);
+}
+.gb{position:relative;overflow:hidden;cursor:pointer}
+.gb svg{width:100%;height:100%;display:block;transition:transform .55s}
+.gb:hover svg{transform:scale(1.07)}
+.gb-ov{
+  position:absolute;inset:0;background:rgba(26,21,16,0);
+  transition:background .3s;display:flex;align-items:flex-end;padding:14px 16px;
+}
+.gb:hover .gb-ov{background:rgba(26,21,16,.35)}
+.gb-title{
+  font-family:var(--serif);font-weight:300;font-size:16px;
+  color:#f8f5ef;opacity:0;transform:translateY(5px);transition:all .3s;
+}
+.gb:hover .gb-title{opacity:1;transform:translateY(0)}
+
+/* ══ TOURS ══ */
+.tours{background:var(--cream)}
+.courses-layout{display:grid;grid-template-columns:240px 1fr;gap:3rem;align-items:start;margin-top:3rem}
+.course-tabs{display:flex;flex-direction:column;gap:0;position:sticky;top:90px;border:.5px solid var(--beige)}
+.ctab{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 20px;cursor:pointer;border:none;background:transparent;
+  text-align:left;transition:all .2s;
+  border-bottom:.5px solid var(--beige);
+  border-left:2px solid transparent;width:100%;
+}
+.ctab:last-child{border-bottom:none}
+.ctab-icon{
+  font-size:18px;width:32px;text-align:center;flex-shrink:0;
+  transition:transform .2s;
+}
+.ctab:hover .ctab-icon{transform:scale(1.15)}
+.ctab-label{
+  font-family:var(--sans);font-size:10px;font-weight:300;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--mid);
+  display:block;transition:color .2s;
+}
+.ctab-count{
+  font-family:var(--sans);font-size:9px;font-weight:200;
+  color:var(--warm);letter-spacing:.06em;display:block;margin-top:2px;
+}
+.ctab:hover{background:var(--ivory);border-left-color:var(--sand)}
+.ctab.active{background:var(--ivory);border-left-color:var(--gold)}
+.ctab.active .ctab-label{color:var(--gold)}
+
+.course-panels{min-height:400px}
+.cpanel{display:none;animation:fadeUp .3s ease}
+.cpanel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.cpanel-hdr{margin-bottom:2rem;padding-bottom:1.2rem;border-bottom:.5px solid var(--beige)}
+.cpanel-hdr h3{font-family:var(--serif);font-weight:300;font-size:32px;color:var(--ink);margin-bottom:4px}
+.cpanel-hdr p{font-size:12.5px;font-weight:300;color:var(--mid)}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:1px;background:var(--beige);border:.5px solid var(--beige)}
+
+/* COURSE CARD — LOEWE style: clean, white, serif header */
+.ccard{
+  background:var(--cream);cursor:pointer;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.ccard:hover{background:var(--ivory)}
+.ccard-img{height:180px;position:relative;overflow:hidden}
+.ccard-img svg{width:100%;height:100%;display:block;transition:transform .55s}
+.ccard:hover .ccard-img svg{transform:scale(1.05)}
+.ccard-dur{
+  position:absolute;bottom:12px;right:12px;
+  background:rgba(248,245,239,.88);backdrop-filter:blur(4px);
+  font-family:var(--sans);font-size:8.5px;font-weight:300;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);padding:5px 12px;
+}
+.ccard-badge{
+  position:absolute;top:12px;left:12px;
+  background:var(--gold);color:var(--cream);
+  font-family:var(--sans);font-size:8px;font-weight:300;
+  letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;
+}
+.ccard-body{padding:20px 22px 22px}
+.ccard-body h4{
+  font-family:var(--serif);font-weight:300;font-size:20px;
+  color:var(--ink);margin-bottom:6px;line-height:1.2;
+}
+.ccard-body p{font-size:12px;font-weight:300;line-height:1.72;color:var(--mid);margin-bottom:14px}
+.ccard-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:.5px solid var(--beige);
+}
+.ccard-price{
+  font-family:var(--serif);font-size:18px;font-weight:300;color:var(--gold);
+}
+.ccard-book{
+  font-family:var(--sans);font-size:8.5px;font-weight:300;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink);background:none;
+  border:.5px solid rgba(26,21,16,.28);padding:8px 18px;cursor:pointer;
+  transition:all .2s;
+}
+.ccard-book:hover{background:var(--ink);color:var(--cream)}
+
+/* ══ HOW IT WORKS ══ */
+.how{background:var(--ivory);border-top:.5px solid var(--beige);border-bottom:.5px solid var(--beige)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:3rem;gap:0;border:.5px solid var(--beige)}
+.step{
+  padding:40px 32px;border-right:.5px solid var(--beige);
+  position:relative;
+}
+.step:last-child{border-right:none}
+.step-num{
+  font-family:var(--serif);font-size:52px;font-weight:300;
+  color:rgba(160,128,64,.2);line-height:1;margin-bottom:18px;
+}
+.step h4{
+  font-family:var(--sans);font-size:10.5px;font-weight:400;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;
+}
+.step p{font-size:12.5px;font-weight:300;line-height:1.8;color:var(--mid)}
+
+/* ══ PARTNER ══ */
+.partners{background:var(--cream)}
+.partner-card{
+  display:grid;grid-template-columns:340px 1fr;
+  border:.5px solid var(--beige);max-width:860px;
+  transition:border-color .25s;
+}
+.partner-card:hover{border-color:var(--gold)}
+.partner-img{overflow:hidden;border-right:.5px solid var(--beige)}
+.partner-img svg{width:100%;height:100%;display:block}
+.partner-info{padding:48px 52px;display:flex;flex-direction:column;justify-content:center}
+.ptag{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;
+  letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:14px;display:block;
+}
+.pname{
+  font-family:var(--serif);font-weight:300;font-size:32px;
+  color:var(--ink);line-height:1.1;margin-bottom:4px;
+}
+.pname em{font-style:italic}
+.pkr{font-size:13px;font-weight:300;color:var(--mid);margin-bottom:20px}
+.psep{width:36px;height:.5px;background:var(--gold);opacity:.5;margin-bottom:20px}
+.pdesc{font-size:13px;font-weight:300;line-height:1.85;color:var(--mid)}
+
+/* ══ PHOTO CTA ══ */
+.photo-cta{
+  position:relative;height:520px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.pcta-bg{position:absolute;inset:0;z-index:0}
+.pcta-bg svg{width:100%;height:100%;display:block}
+.pcta-ov{
+  position:absolute;inset:0;z-index:1;
+  background:rgba(248,245,239,.72);
+}
+.pcta-content{
+  position:relative;z-index:2;text-align:center;max-width:600px;padding:2rem;
+}
+/* Moewe geometric rings overlay */
+.pcta-ring1{position:absolute;border-radius:50%;border:.5px solid rgba(160,128,64,.22);width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2}
+.pcta-ring2{position:absolute;border-radius:50%;border:.25px solid rgba(160,128,64,.1);width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2}
+.pcta-tag{
+  font-family:var(--sans);font-size:9.5px;font-weight:300;
+  letter-spacing:.44em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.pcta-tag::before,.pcta-tag::after{content:'';display:block;width:32px;height:.5px;background:var(--gold)}
+.pcta-h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(32px,4.5vw,58px);line-height:1.02;
+  color:var(--ink);margin-bottom:10px;
+}
+.pcta-h2 em{font-style:italic;color:var(--gold)}
+.pcta-sub{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:18px;color:var(--mid);margin-bottom:36px;
+}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ══ FOOTER ══ */
+footer{
+  background:var(--ivory);border-top:.5px solid var(--beige);
+  padding:64px 80px 40px;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;
+}
+.f-logo{
+  font-family:var(--serif);font-weight:300;font-size:22px;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:10px;
+}
+.f-logo em{font-style:italic;color:var(--gold)}
+.f-sub{
+  font-family:var(--sans);font-size:8.5px;font-weight:200;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;
+}
+.footer-brand p{font-size:12.5px;font-weight:300;line-height:1.8;color:var(--mid)}
+footer h5{
+  font-family:var(--sans);font-size:9px;font-weight:400;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--ink);
+  margin-bottom:18px;
+}
+footer ul{list-style:none}
+footer ul li{margin-bottom:10px}
+footer ul li a{
+  font-size:12.5px;font-weight:300;color:var(--mid);text-decoration:none;
+  transition:color .2s;
+}
+footer ul li a:hover{color:var(--ink)}
+.footer-bot{
+  background:var(--ivory);border-top:.5px solid var(--beige);
+  padding:20px 80px;display:flex;justify-content:space-between;
+  color:var(--warm);font-size:11px;font-weight:200;letter-spacing:.06em;
+}
+.footer-bot a{color:var(--warm);text-decoration:none}
+.footer-bot a:hover{color:var(--ink)}
+
+/* ══ MODAL ══ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(26,21,16,.45);z-index:500;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--cream);width:520px;max-width:92vw;max-height:88vh;
+  overflow-y:auto;position:relative;
+  border:.5px solid var(--beige);
+  animation:modalIn .3s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-hdr{
+  padding:32px 36px 24px;border-bottom:.5px solid var(--beige);
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.modal-tag2{
+  font-family:var(--sans);font-size:8.5px;font-weight:300;
+  letter-spacing:.38em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:6px;display:block;
+}
+.modal-hdr h3{
+  font-family:var(--serif);font-weight:300;font-size:26px;color:var(--ink);
+}
+.modal-x{
+  width:28px;height:28px;background:none;border:.5px solid var(--beige);
+  cursor:pointer;font-size:.9rem;color:var(--mid);flex-shrink:0;
+  transition:all .2s;margin-left:12px;display:flex;align-items:center;justify-content:center;
+}
+.modal-x:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.modal-bdy{padding:24px 36px 36px}
+.modal-price-box{
+  background:var(--ivory);border:.5px solid var(--beige);
+  padding:14px 18px;margin-bottom:24px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.modal-price-box .pn{
+  font-family:var(--serif);font-size:16px;font-weight:300;color:var(--ink);
+}
+.modal-price-box .pp{
+  font-family:var(--serif);font-size:20px;font-weight:300;color:var(--gold);
+}
+.fg{margin-bottom:14px}
+.fg label{
+  font-family:var(--sans);font-size:8px;font-weight:300;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--mid);display:block;margin-bottom:5px;
+}
+.fg input,.fg select{
+  width:100%;padding:11px 14px;
+  border:.5px solid var(--sand);background:var(--cream);
+  font-family:var(--sans);font-size:13px;font-weight:300;color:var(--ink);
+  outline:none;transition:border .2s;
+}
+.fg input:focus,.fg select:focus{border-color:var(--gold)}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-submit{
+  width:100%;padding:14px;margin-top:6px;
+  background:var(--ink);color:var(--cream);border:none;cursor:pointer;
+  font-family:var(--sans);font-size:9.5px;font-weight:300;letter-spacing:.3em;
+  text-transform:uppercase;transition:background .2s;
+}
+.btn-submit:hover{background:var(--char)}
+.modal-note{
+  font-size:11.5px;font-weight:300;color:var(--mid);
+  text-align:center;margin-top:10px;line-height:1.65;
+}
+.success-scr{display:none;text-align:center;padding:60px 36px}
+.success-scr.show{display:block}
+.success-mark{
+  font-family:var(--serif);font-size:42px;color:var(--gold);
+  margin-bottom:16px;
+}
+.success-scr h3{
+  font-family:var(--serif);font-weight:300;font-size:30px;color:var(--ink);margin-bottom:10px;
+}
+.success-scr p{font-size:13px;font-weight:300;color:var(--mid);line-height:1.75}
+
+/* ══ FADE ANIMATION ══ */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:960px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .hero-content{padding:0 28px 56px}
+  .sec{padding:64px 28px}
+  .video-strip{grid-template-columns:1fr}
+  .vs-text{padding:48px 28px;border-right:none;border-bottom:.5px solid var(--beige)}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .mc:first-child{grid-column:1/3;height:280px}
+  .mc:nth-child(4){grid-column:1/3}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .why-item:nth-child(2),.why-item:nth-child(4),.why-item:nth-child(6){border-right:none}
+  .gallery-band{grid-template-columns:repeat(3,1fr);height:180px}
+  .courses-layout{grid-template-columns:1fr}
+  .course-tabs{flex-direction:row;flex-wrap:wrap;border:none;gap:0;position:static}
+  .ctab{border:.5px solid var(--beige);width:auto;flex:1;min-width:130px}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{border-bottom:.5px solid var(--beige)}
+  .step:nth-child(2){border-right:none}
+  .step:nth-child(3),.step:nth-child(4){border-bottom:none}
+  .partner-card{grid-template-columns:1fr}
+  .partner-img{height:220px;border-right:none;border-bottom:.5px solid var(--beige)}
+  .partner-info{padding:32px 28px}
+  footer{grid-template-columns:1fr 1fr;padding:48px 28px 28px}
+  .footer-bot{padding:16px 28px;flex-direction:column;gap:6px}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">Like <em>a</em> Local</div>
-  <div class="nav-links">
-    <a href="#courses">Courses</a>
-    <a href="#partners">Partners</a>
-    <a href="#about">About</a>
-    <a href="#courses" class="nav-cta">Book Now</a>
-  </div>
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <span class="nav-lal">Like <em>a</em> Local</span>
+    <span class="nav-sub">Suwon · Korea</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#tours">Tours</a></li>
+    <li><a href="#why">Why Suwon</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#partners">Partners</a></li>
+    <li><a href="#tours" class="nav-cta">Book Now</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <!-- geometric overlays -->
   <div class="hero-ring r1"></div>
   <div class="hero-ring r2"></div>
   <div class="hero-ring r3"></div>
   <div class="hero-diag"></div>
-  <div class="hero-dots tl">
-    <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
-    <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
-    <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
-  </div>
   <div class="hero-dots tr">
     <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
     <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
     <div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div>
   </div>
+  <div class="tick tl"></div><div class="tick tr2"></div>
+  <div class="tick bl"></div><div class="tick br"></div>
+
+  <!-- Illustrated scene -->
+  <div class="hero-bg">
+    <svg viewBox="0 0 1440 900" width="1440" height="900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8dfc8"/>
+          <stop offset="45%" stop-color="#d4c8a8"/>
+          <stop offset="80%" stop-color="#c4b890"/>
+          <stop offset="100%" stop-color="#b8a878"/>
+        </linearGradient>
+        <radialGradient id="hsun" cx="72%" cy="28%" r="22%">
+          <stop offset="0%" stop-color="#f5e0a0" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#f5e0a0" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="hmtn1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c4b890"/>
+          <stop offset="100%" stop-color="#a8987a"/>
+        </linearGradient>
+        <linearGradient id="hwall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b8aa88"/>
+          <stop offset="100%" stop-color="#a09070"/>
+        </linearGradient>
+      </defs>
+      <!-- sky -->
+      <rect width="1440" height="900" fill="url(#hsky)"/>
+      <rect width="1440" height="900" fill="url(#hsun)"/>
+      <!-- Sun circle -->
+      <circle cx="1040" cy="250" r="60" fill="#f5e0a0" opacity=".4"/>
+      <circle cx="1040" cy="250" r="38" fill="#f5e0a0" opacity=".45"/>
+      <!-- Mountain silhouettes — warm taupe -->
+      <path d="M0,480 C80,430 180,395 300,415 C390,430 460,385 580,370 C700,355 780,395 920,382 C1020,372 1120,405 1300,390 C1380,383 1430,395 1440,390 L1440,900 L0,900Z" fill="#b8ac8a" opacity=".55"/>
+      <path d="M0,520 C100,475 220,450 380,468 C490,480 570,442 690,438 C810,434 900,462 1060,448 C1160,438 1280,462 1440,450 L1440,900 L0,900Z" fill="#a89870" opacity=".6"/>
+      <!-- Fortress wall -->
+      <rect x="0" y="590" width="1440" height="310" fill="#c4b890" opacity=".7"/>
+      <!-- Battlements — delicate outlines -->
+      <rect x="0"    y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="48"   y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="96"   y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="144"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="192"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="240"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="288"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="336"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="384"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="432"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="528"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="576"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="720"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="768"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="816"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="864"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="912"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="960"  y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1008" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1100" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1148" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1196" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1244" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1292" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1340" y="562" width="34" height="32" fill="#c4b890" opacity=".7"/>
+      <rect x="1388" y="562" width="52" height="32" fill="#c4b890" opacity=".7"/>
+      <!-- Gate tower -->
+      <rect x="474" y="370" width="248" height="224" fill="#b8aa88" opacity=".9"/>
+      <polygon points="474,370 598,318 722,370" fill="#b0a280" opacity=".9"/>
+      <!-- tower outline — thin gold line (MOEWE signature) -->
+      <polyline points="474,370 598,318 722,370" fill="none" stroke="rgba(160,128,64,.4)" stroke-width="1"/>
+      <rect x="474" y="370" width="248" height="224" fill="none" stroke="rgba(160,128,64,.2)" stroke-width=".7"/>
+      <!-- Gate arch -->
+      <path d="M548,594 L548,496 Q598,466 648,496 L648,594 Z" fill="#c4b890" opacity=".7"/>
+      <path d="M550,592 L550,498 Q598,470 646,498 L646,592 Z" fill="none" stroke="rgba(160,128,64,.3)" stroke-width=".7"/>
+      <!-- Tower windows — elegant arched outlines -->
+      <rect x="558" y="406" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.35)" stroke-width=".7"/>
+      <rect x="618" y="406" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.35)" stroke-width=".7"/>
+      <rect x="588" y="394" width="20" height="30" rx="10" fill="none" stroke="rgba(160,128,64,.4)" stroke-width=".7"/>
+      <!-- Finial + lantern -->
+      <line x1="598" y1="318" x2="598" y2="300" stroke="rgba(160,128,64,.5)" stroke-width=".8"/>
+      <circle cx="598" cy="296" r="5" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="598" cy="296" r="2" fill="#a08040" opacity=".7"/>
+      <!-- Wall top line -->
+      <line x1="0" y1="594" x2="474" y2="594" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
+      <line x1="722" y1="594" x2="1440" y2="594" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
+      <!-- Foreground ground -->
+      <rect x="0" y="800" width="1440" height="100" fill="#c8ba98" opacity=".5"/>
+    </svg>
+  </div>
+
+  <!-- Subtle overlay so text reads clearly -->
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(248,245,239,.72) 0%,rgba(248,245,239,.3) 55%,rgba(248,245,239,.05) 100%)"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">Small-Group English Guided Tours</div>
-    <div class="hero-title">Like <em>a</em><br>Local</div>
-    <div class="hero-sub">Suwon · Korea</div>
-    <p class="hero-desc">
-      Experience Suwon the way locals do — intimate groups, authentic stories,
-      hidden spots that no tour bus will ever find.
+    <div class="hero-tag">1 Hour from Seoul · UNESCO Heritage · Max 8 Guests</div>
+    <h1 class="hero-h1">
+      It's not Seoul.<br>
+      <em>That's the point.</em>
+      <span class="sub-line">Suwon, Korea</span>
+    </h1>
+    <p style="font-size:14px;font-weight:300;line-height:1.85;color:var(--mid);max-width:480px;margin-bottom:0">
+      Small-group English tours for travellers who want depth, not distance.<br>Local food, hidden stories, real connections.
     </p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Explore Courses</button>
-      <button class="btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Our Story</button>
+      <a href="#tours" class="btn-ink">Explore All Tours</a>
+      <a href="#why" class="btn-outline-ink">Why Suwon?</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hstat-n">12+</div><div class="hstat-l">Tour Courses</div></div>
+      <div class="hero-stat"><div class="hstat-n">30+</div><div class="hstat-l">Countries</div></div>
+      <div class="hero-stat"><div class="hstat-n">Max 8</div><div class="hstat-l">Per Group</div></div>
     </div>
   </div>
 
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="stat-n">Max 8</div>
-      <div class="stat-l">Per Group</div>
-    </div>
-    <div class="hero-stat">
-      <div class="stat-n">100%</div>
-      <div class="stat-l">English Guided</div>
-    </div>
-    <div class="hero-stat">
-      <div class="stat-n">Local</div>
-      <div class="stat-l">Hidden Spots</div>
-    </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why" id="why">
-  <div class="section-eyebrow">Why Like a Local</div>
-  <div class="section-title">The <em>difference</em></div>
-  <div class="section-sub">What makes us unlike any other tour</div>
+<!-- VIDEO STRIP -->
+<div class="video-strip fade-up">
+  <div class="vs-text">
+    <div class="sec-tag">See It For Yourself</div>
+    <h2 class="vs-h2">Suwon in <em>Motion</em></h2>
+    <p class="vs-desc">Watch what a day with Like a Local actually looks like — fortress walls, local markets, galbi dinners, and the moments that can't be planned.</p>
+    <a href="#tours" class="btn-ink" style="align-self:flex-start">Book Your Tour</a>
+  </div>
+  <div class="vs-embed">
+    <div class="vs-placeholder" id="vp" onclick="playVideo()">
+      <div class="play-ring">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <span class="vs-vlabel">Watch Our Story</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO MOSAIC -->
+<div class="mosaic">
+  <!-- Cell 1: Fortress dawn (tall) -->
+  <div class="mc">
+    <svg viewBox="0 0 400 642" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="m1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8bc98"/><stop offset="60%" stop-color="#a89870"/><stop offset="100%" stop-color="#907858"/></linearGradient></defs>
+      <rect width="400" height="642" fill="url(#m1g)"/>
+      <circle cx="300" cy="120" r="70" fill="#f5e0a0" opacity=".3"/>
+      <path d="M0,320 C60,285 130,265 210,278 C270,288 320,255 400,245 L400,642 L0,642Z" fill="#b0a07a" opacity=".7"/>
+      <path d="M0,380 C80,345 170,328 280,342 C340,350 390,330 400,325 L400,642 L0,642Z" fill="#a09068" opacity=".75"/>
+      <rect x="0" y="430" width="400" height="212" fill="#c0b088" opacity=".7"/>
+      <!-- battlements -->
+      <rect x="5"   y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="38"  y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="71"  y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="104" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="137" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="170" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="237" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="270" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="303" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="336" y="406" width="24" height="26" fill="#c0b088" opacity=".7"/>
+      <rect x="369" y="406" width="31" height="26" fill="#c0b088" opacity=".7"/>
+      <!-- gate tower -->
+      <rect x="148" y="268" width="104" height="164" fill="#b8a878" opacity=".9"/>
+      <polygon points="148,268 200,240 252,268" fill="#b0a070"/>
+      <polyline points="148,268 200,240 252,268" fill="none" stroke="rgba(160,128,64,.5)" stroke-width="1"/>
+      <path d="M174,432 L174,368 Q200,350 226,368 L226,432 Z" fill="#c0b088" opacity=".7"/>
+      <circle cx="200" cy="248" r="4" fill="#a08040" opacity=".75"/>
+      <circle cx="200" cy="248" r="10" fill="#a08040" opacity=".12"/>
+      <line x1="200" y1="240" x2="200" y2="224" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <line x1="0" y1="432" x2="148" y2="432" stroke="rgba(160,128,64,.3)" stroke-width=".6"/>
+      <line x1="252" y1="432" x2="400" y2="432" stroke="rgba(160,128,64,.3)" stroke-width=".6"/>
+    </svg>
+    <div class="mc-caption"><span class="mc-tag">UNESCO Heritage</span><div class="mc-title">Hwaseong Fortress</div></div>
+  </div>
+  <!-- Cell 2: Galbi -->
+  <div class="mc">
+    <svg viewBox="0 0 600 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="m2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8b488"/><stop offset="100%" stop-color="#a89060"/></linearGradient></defs>
+      <rect width="600" height="318" fill="url(#m2g)"/>
+      <rect x="100" y="120" width="400" height="130" rx="3" fill="rgba(160,128,64,.18)" stroke="rgba(160,128,64,.3)" stroke-width=".7"/>
+      <line x1="118" y1="128" x2="118" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="141" y1="128" x2="141" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="164" y1="128" x2="164" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="187" y1="128" x2="187" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="210" y1="128" x2="210" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="233" y1="128" x2="233" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="256" y1="128" x2="256" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="279" y1="128" x2="279" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="302" y1="128" x2="302" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="325" y1="128" x2="325" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="348" y1="128" x2="348" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="371" y1="128" x2="371" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="394" y1="128" x2="394" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="417" y1="128" x2="417" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="440" y1="128" x2="440" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="463" y1="128" x2="463" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="486" y1="128" x2="486" y2="243" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <line x1="100" y1="162" x2="500" y2="162" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
+      <line x1="100" y1="196" x2="500" y2="196" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
+      <path d="M118,134 Q148,124 178,135 Q178,158 148,165 Q118,158 118,134Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
+      <path d="M196,130 Q234,120 268,132 Q268,156 234,163 Q196,156 196,130Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
+      <path d="M292,133 Q328,123 360,135 Q360,158 328,165 Q292,158 292,133Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
+      <path d="M376,135 Q404,126 430,137 Q430,158 404,164 Q376,157 376,135Z" fill="rgba(160,100,40,.35)" stroke="rgba(160,80,20,.5)" stroke-width=".8"/>
+      <!-- smoke wisps -->
+      <path d="M148,120 Q140,88 148,62" stroke="rgba(160,128,64,.2)" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M234,117 Q228,84 235,58" stroke="rgba(160,128,64,.16)" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M328,119 Q322,86 328,60" stroke="rgba(160,128,64,.18)" stroke-width="8" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="mc-caption"><span class="mc-tag">Local Eats</span><div class="mc-title">Suwon Galbi</div></div>
+  </div>
+  <!-- Cell 3: Night Market (soft beige version) -->
+  <div class="mc">
+    <svg viewBox="0 0 600 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="318" fill="#d4c8a8"/>
+      <path d="M0,80 L50,58 L100,70 L150,50 L210,64 L260,44 L320,57 L380,40 L440,54 L500,36 L560,50 L600,38 L600,80Z" fill="#c4b890" opacity=".8"/>
+      <path d="M0,72 Q300,60 600,68" stroke="rgba(160,128,64,.4)" stroke-width=".8" fill="none"/>
+      <circle cx="60"  cy="68" r="3" fill="#a08040" opacity=".75"/>
+      <circle cx="150" cy="64" r="3" fill="#a08040" opacity=".75"/>
+      <circle cx="260" cy="62" r="3" fill="#a08040" opacity=".75"/>
+      <circle cx="360" cy="64" r="3" fill="#a08040" opacity=".75"/>
+      <circle cx="460" cy="63" r="3" fill="#a08040" opacity=".75"/>
+      <circle cx="550" cy="62" r="3" fill="#a08040" opacity=".75"/>
+      <!-- stalls -->
+      <rect x="10"  y="80" width="88" height="238" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <path d="M0,80 L108,80 L98,64 L10,64 Z" fill="#b8ac88" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
+      <line x1="54" y1="58" x2="54" y2="72" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <ellipse cx="54" cy="79" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="54" cy="79" r="3" fill="#a08040" opacity=".6"/>
+      <rect x="120" y="72" width="110" height="246" fill="#ccc090" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <path d="M108,72 L242,72 L230,56 L122,56 Z" fill="#bcb484" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
+      <line x1="175" y1="50" x2="175" y2="64" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <ellipse cx="175" cy="71" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="175" cy="71" r="3" fill="#a08040" opacity=".65"/>
+      <rect x="252" y="76" width="115" height="242" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <path d="M240,76 L380,76 L368,60 L254,60 Z" fill="#b8ac88" stroke="rgba(160,128,64,.22)" stroke-width=".5"/>
+      <line x1="310" y1="54" x2="310" y2="68" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <ellipse cx="310" cy="75" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="310" cy="75" r="3" fill="#a08040" opacity=".6"/>
+      <rect x="390" y="78" width="105" height="240" fill="#ccc090" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <path d="M380,78 L504,78 L494,62 L392,62 Z" fill="#bcb484"/>
+      <line x1="437" y1="56" x2="437" y2="70" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <ellipse cx="437" cy="77" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="437" cy="77" r="3" fill="#a08040" opacity=".6"/>
+      <rect x="506" y="80" width="94" height="238" fill="#c8bc98" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <path d="M496,80 L610,80 L600,64 L508,64 Z" fill="#b8ac88"/>
+      <line x1="553" y1="58" x2="553" y2="72" stroke="rgba(160,128,64,.55)" stroke-width=".8"/>
+      <ellipse cx="553" cy="79" rx="6" ry="8" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="553" cy="79" r="3" fill="#a08040" opacity=".55"/>
+    </svg>
+    <div class="mc-caption"><span class="mc-tag">Insider Guide</span><div class="mc-title">Haenggung Night Market</div></div>
+  </div>
+  <!-- Cell 4: Wide - street food tour -->
+  <div class="mc">
+    <svg viewBox="0 0 1200 318" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="m4g" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d4c8a8"/><stop offset="50%" stop-color="#c8bc98"/><stop offset="100%" stop-color="#d4c8a8"/></linearGradient></defs>
+      <rect width="1200" height="318" fill="url(#m4g)"/>
+      <!-- street perspective -->
+      <path d="M0,318 L450,160 L750,160 L1200,318Z" fill="rgba(160,128,64,.1)"/>
+      <!-- buildings left -->
+      <rect x="20" y="70" width="160" height="248" fill="#c8bc98" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <rect x="20" y="70" width="160" height="44" fill="#b8ac88"/>
+      <rect x="36" y="128" width="52" height="70" rx="1" fill="rgba(160,128,64,.12)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <rect x="108" y="128" width="52" height="70" rx="1" fill="rgba(160,128,64,.12)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+      <!-- lantern left -->
+      <line x1="192" y1="60" x2="242" y2="76" stroke="rgba(160,128,64,.3)" stroke-width=".8"/>
+      <ellipse cx="242" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="242" cy="80" r="3" fill="#a08040" opacity=".65"/>
+      <!-- middle buildings -->
+      <rect x="380" y="80" width="130" height="238" fill="#ccc090" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
+      <rect x="380" y="80" width="130" height="40" fill="#b8a870"/>
+      <rect x="530" y="88" width="140" height="230" fill="#c8bc98" stroke="rgba(160,128,64,.15)" stroke-width=".6"/>
+      <rect x="530" y="88" width="140" height="40" fill="#b8ac88"/>
+      <!-- people silhouettes — warm taupe -->
+      <ellipse cx="485" cy="288" rx="14" ry="22" fill="#b0a070" opacity=".7"/>
+      <circle cx="485" cy="264" r="9" fill="#b0a070" opacity=".7"/>
+      <ellipse cx="525" cy="292" rx="12" ry="20" fill="#b0a070" opacity=".7"/>
+      <circle cx="525" cy="270" r="8" fill="#b0a070" opacity=".7"/>
+      <ellipse cx="680" cy="286" rx="13" ry="21" fill="#b0a070" opacity=".7"/>
+      <circle cx="680" cy="263" r="9" fill="#b0a070" opacity=".7"/>
+      <!-- lantern mid -->
+      <line x1="790" y1="60" x2="740" y2="76" stroke="rgba(160,128,64,.3)" stroke-width=".8"/>
+      <ellipse cx="740" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+      <circle cx="740" cy="80" r="3" fill="#a08040" opacity=".65"/>
+      <!-- right building: tteok display -->
+      <rect x="1000" y="75" width="165" height="243" fill="#ccc090" stroke="rgba(160,128,64,.18)" stroke-width=".7"/>
+      <rect x="1000" y="75" width="165" height="44" fill="#a89060"/>
+      <rect x="1012" y="132" width="140" height="10" rx="1" fill="rgba(160,128,64,.25)"/>
+      <ellipse cx="1042" cy="160" rx="20" ry="10" fill="rgba(200,160,160,.55)"/>
+      <ellipse cx="1082" cy="156" rx="20" ry="10" fill="rgba(220,190,120,.55)"/>
+      <ellipse cx="1122" cy="160" rx="20" ry="10" fill="rgba(160,190,130,.55)"/>
+    </svg>
+    <div class="mc-caption"><span class="mc-tag">Food Tour</span><div class="mc-title">Haenggung-dong · Local Street</div></div>
+  </div>
+</div>
+
+<!-- WHY SUWON -->
+<section class="sec why fade-up" id="why">
+  <div class="sec-tag">Why Suwon?</div>
+  <h2 class="sec-h2">Seoul has the crowds.<br><em>Suwon has the soul.</em></h2>
+  <p class="sec-sub">12.8 million visitors come to Korea each year. Most stay in Seoul.</p>
   <div class="why-grid">
-    <div class="why-item">
-      <div class="why-num">01</div>
-      <div class="why-title">Truly Small Groups</div>
-      <div class="why-text">Maximum 8 guests per tour. You get real attention, real conversation — not a crowd following a flag.</div>
+    <div class="why-item"><div class="why-num">01</div><div class="why-title">UNESCO World Heritage</div><p class="why-text">Hwaseong Fortress — a complete 18th-century royal defence system, fully intact, walkable, 40 minutes from Seoul.</p></div>
+    <div class="why-item"><div class="why-num">02</div><div class="why-title">Suwon Galbi</div><p class="why-text">The city that invented Korean BBQ short ribs. You haven't eaten galbi until you've had it here, on Ingye-dong street.</p></div>
+    <div class="why-item"><div class="why-num">03</div><div class="why-title">Haenggung-dong</div><p class="why-text">Indie cafés, craft studios, murals — the creative neighbourhood locals love on weekends, untouched by tour buses.</p></div>
+    <div class="why-item"><div class="why-num">04</div><div class="why-title">Living Traditional Markets</div><p class="why-text">Five real, active traditional markets where local grandmothers do their weekly shopping. A living city, not a set.</p></div>
+    <div class="why-item"><div class="why-num">05</div><div class="why-title">Palace Performances</div><p class="why-text">Guard-changing ceremonies, archery experiences, hanbok. History still alive, not just preserved behind glass.</p></div>
+    <div class="why-item"><div class="why-num">06</div><div class="why-title">1 Hour from Seoul</div><p class="why-text">Direct express train from Seoul Station. No flights, no transfers. Step off and we take it from there.</p></div>
+  </div>
+</section>
+
+<!-- GALLERY BAND -->
+<div class="gallery-band">
+  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><circle cx="220" cy="70" r="44" fill="#f5e0a0" opacity=".3"/><path d="M0,140 C50,118 110,106 180,115 C230,122 270,104 288,98 L288,260 L0,260Z" fill="#b8a878" opacity=".7"/><rect x="0" y="165" width="288" height="95" fill="#c0b088" opacity=".7"/><rect x="74" y="108" width="92" height="72" fill="#b8a878" opacity=".8"/><polygon points="74,108 120,84 166,108" fill="#b0a070"/><polyline points="74,108 120,84 166,108" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".8"/><circle cx="120" cy="92" r="4" fill="#a08040" opacity=".7"/></svg><div class="gb-ov"><div class="gb-title">Fortress · Dawn</div></div></div>
+  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#d4c8a8"/><rect x="64" y="88" width="160" height="110" rx="2" fill="rgba(160,128,64,.2)" stroke="rgba(160,128,64,.3)" stroke-width=".7"/><line x1="80" y1="96" x2="80" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="102" y1="96" x2="102" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="124" y1="96" x2="124" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="146" y1="96" x2="146" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="168" y1="96" x2="168" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="190" y1="96" x2="190" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><line x1="212" y1="96" x2="212" y2="192" stroke="rgba(160,128,64,.18)" stroke-width=".6"/><path d="M82,100 Q100,92 120,101 Q120,122 100,128 Q80,122 82,100Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.45)" stroke-width=".7"/><path d="M134,97 Q158,88 180,98 Q180,120 158,126 Q134,120 134,97Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.45)" stroke-width=".7"/><path d="M100,88 Q93,62 100,42" stroke="rgba(160,128,64,.2)" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M158,86 Q152,60 158,40" stroke="rgba(160,128,64,.18)" stroke-width="7" fill="none" stroke-linecap="round"/></svg><div class="gb-ov"><div class="gb-title">Suwon Galbi</div></div></div>
+  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><path d="M0,62 Q144,52 288,60" stroke="rgba(160,128,64,.4)" stroke-width=".8" fill="none"/><circle cx="48" cy="59" r="2.5" fill="#a08040" opacity=".7"/><circle cx="112" cy="56" r="2.5" fill="#a08040" opacity=".7"/><circle cx="176" cy="57" r="2.5" fill="#a08040" opacity=".7"/><circle cx="240" cy="59" r="2.5" fill="#a08040" opacity=".7"/><rect x="12" y="68" width="80" height="192" fill="#c0b488" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M4,68 L100,68 L92,54 L12,54 Z" fill="#b8ac84"/><rect x="104" y="62" width="90" height="198" fill="#ccc498" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M96,62 L204,62 L196,48 L100,48 Z" fill="#c0b88c"/><rect x="206" y="66" width="82" height="194" fill="#c0b888" stroke="rgba(160,128,64,.15)" stroke-width=".5"/><path d="M198,66 L296,66 L288,52 L202,52 Z" fill="#b8b080"/><line x1="52" y1="46" x2="52" y2="60" stroke="rgba(160,128,64,.55)" stroke-width=".7"/><ellipse cx="52" cy="66" rx="5" ry="7" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/><circle cx="52" cy="66" r="2.5" fill="#a08040" opacity=".6"/><line x1="149" y1="42" x2="149" y2="55" stroke="rgba(160,128,64,.55)" stroke-width=".7"/><ellipse cx="149" cy="61" rx="5" ry="7" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/><circle cx="149" cy="61" r="2.5" fill="#a08040" opacity=".6"/></svg><div class="gb-ov"><div class="gb-title">Night Market</div></div></div>
+  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#d0c8aa"/><path d="M0,100 C40,80 90,68 150,78 C200,86 250,68 288,62 L288,260 L0,260Z" fill="#c4b890" opacity=".7"/><circle cx="60" cy="90" r="24" fill="rgba(230,180,180,.5)"/><circle cx="90" cy="75" r="18" fill="rgba(230,180,180,.45)"/><circle cx="38" cy="80" r="14" fill="rgba(240,190,200,.45)"/><circle cx="118" cy="86" r="20" fill="rgba(230,180,180,.4)"/><circle cx="148" cy="70" r="14" fill="rgba(240,190,200,.45)"/><circle cx="190" cy="80" r="16" fill="rgba(230,180,180,.4)"/></svg><div class="gb-ov"><div class="gb-title">Cherry Blossoms</div></div></div>
+  <div class="gb"><svg viewBox="0 0 288 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><rect width="288" height="260" fill="#c8bc98"/><path d="M0,100 C60,78 130,64 200,76 C240,84 270,65 288,60 L288,260 L0,260Z" fill="#beb07a" opacity=".7"/><path d="M0,130 C80,108 160,95 288,108 L288,260 L0,260Z" fill="#b0a070" opacity=".7"/><circle cx="90" cy="86" r="28" fill="rgba(180,110,30,.45)"/><circle cx="90" cy="86" r="16" fill="rgba(190,120,30,.4)"/><circle cx="160" cy="74" r="22" fill="rgba(180,110,30,.4)"/><circle cx="220" cy="90" r="24" fill="rgba(170,100,25,.4)"/><circle cx="50" cy="106" r="18" fill="rgba(190,120,30,.4)"/><line x1="90" y1="114" x2="90" y2="200" stroke="#806020" stroke-width="2.5"/><line x1="160" y1="96" x2="160" y2="200" stroke="#806020" stroke-width="2"/><line x1="220" y1="114" x2="220" y2="200" stroke="#806020" stroke-width="2"/></svg><div class="gb-ov"><div class="gb-title">Autumn Foliage</div></div></div>
+</div>
+
+<!-- TOUR COURSES -->
+<section class="sec tours fade-up" id="tours">
+  <div class="sec-tag">Our Experiences</div>
+  <h2 class="sec-h2">Choose Your <em>Perfect Course</em></h2>
+  <p class="sec-sub">From half-day walks to overnight stays — filter by duration, season, or theme.</p>
+  <div class="courses-layout">
+    <div class="course-tabs">
+      <button class="ctab active" onclick="switchTab(this,'duration')"><span class="ctab-icon">🗓️</span><div><span class="ctab-label">By Duration</span><span class="ctab-count">Half Day · Full Day · Overnight</span></div></button>
+      <button class="ctab" onclick="switchTab(this,'season')"><span class="ctab-icon">🌸</span><div><span class="ctab-label">By Season</span><span class="ctab-count">Spring · Summer · Autumn · Winter</span></div></button>
+      <button class="ctab" onclick="switchTab(this,'hwaseong')"><span class="ctab-icon">🏯</span><div><span class="ctab-label">Hwaseong Fortress</span><span class="ctab-count">Heritage · Night · Performance</span></div></button>
+      <button class="ctab" onclick="switchTab(this,'walk')"><span class="ctab-icon">🚶</span><div><span class="ctab-label">Walking Routes</span><span class="ctab-count">Palsaek-gil · Royal Alley</span></div></button>
+      <button class="ctab" onclick="switchTab(this,'market')"><span class="ctab-icon">🧺</span><div><span class="ctab-label">Market Tours</span><span class="ctab-count">Paldalmun · Jidong · Galbi St</span></div></button>
+      <button class="ctab" onclick="switchTab(this,'private')"><span class="ctab-icon">✨</span><div><span class="ctab-label">Private &amp; Custom</span><span class="ctab-count">Tailored for your group</span></div></button>
     </div>
-    <div class="why-item">
-      <div class="why-num">02</div>
-      <div class="why-title">English Fluent</div>
-      <div class="why-text">Our guides are fully fluent. Every story, every question, every off-the-menu recommendation — in clear, natural English.</div>
-    </div>
-    <div class="why-item">
-      <div class="why-num">03</div>
-      <div class="why-title">Actually Local</div>
-      <div class="why-text">We live here. The galbi street, the palace side-gate, the market vendors who know us by name — that's what you get.</div>
-    </div>
-    <div class="why-item">
-      <div class="why-num">04</div>
-      <div class="why-title">Flexible &amp; Custom</div>
-      <div class="why-text">Private tours, custom itineraries, AI-assisted personalization. Your trip, your pace, your interests.</div>
+    <div class="course-panels">
+
+      <div class="cpanel active" id="panel-duration">
+        <div class="cpanel-hdr"><h3>Tours by Duration</h3><p>A few hours or a full weekend — we have the right course for you.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Hwaseong Morning Walk','₩45,000','Half Day · 4hrs')">
+            <div class="ccard-img" style="background:#c8bc98"><div class="ccard-badge">Best Seller</div><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#c8bc98"/><circle cx="180" cy="45" r="36" fill="#f5e0a0" opacity=".3"/><path d="M0,100 C40,82 90,72 160,80 C200,85 230,70 240,65 L240,180 L0,180Z" fill="#b8a878" opacity=".6"/><rect x="0" y="115" width="240" height="65" fill="#c0b088" opacity=".65"/><rect x="72" y="54" width="96" height="76" fill="#b8a878" opacity=".8"/><polygon points="72,54 120,32 168,54" fill="#b0a070"/><polyline points="72,54 120,32 168,54" fill="none" stroke="rgba(160,128,64,.4)" stroke-width=".7"/><circle cx="120" cy="40" r="4" fill="#a08040" opacity=".65"/></svg></div>
+            <div class="ccard-body"><h4>Hwaseong Morning Walk</h4><p>Catch the fortress at golden hour. Walk the full wall circuit with a local guide and hear stories behind every gate.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div>
+          </div>
+          <div class="ccard" onclick="openBooking('Haenggung Food Crawl','₩55,000','Half Day · 3hrs')">
+            <div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#d4c8a8"/><rect x="50" y="72" width="140" height="80" rx="2" fill="rgba(160,128,64,.2)" stroke="rgba(160,128,64,.28)" stroke-width=".6"/><path d="M60,80 Q78,72 98,81 Q98,102 78,108 Q58,102 60,80Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M108,77 Q130,69 152,78 Q152,100 130,106 Q108,100 108,77Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M78,72 Q72,50 78,32" stroke="rgba(160,128,64,.22)" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M130,70 Q124,48 130,30" stroke="rgba(160,128,64,.18)" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="ccard-body"><h4>Haenggung Food Crawl</h4><p>Alleyways of Haenggung-dong, tasting local specialties at 4–5 stops with our partner restaurants.</p><div class="ccard-foot"><span class="ccard-price">₩55,000</span><button class="ccard-book">Reserve</button></div></div>
+          </div>
+          <div class="ccard" onclick="openBooking('Full Day Suwon Deep Dive','₩89,000','Full Day · 8hrs')">
+            <div class="ccard-img" style="background:#c8bc98"><div class="ccard-badge">Most Complete</div><div class="ccard-dur">Full Day</div></div>
+            <div class="ccard-body"><h4>Full Day Suwon Deep Dive</h4><p>Fortress walk + Haenggung Palace + local lunch + craft market. The full Suwon story in one day.</p><div class="ccard-foot"><span class="ccard-price">₩89,000</span><button class="ccard-book">Reserve</button></div></div>
+          </div>
+          <div class="ccard" onclick="openBooking('Suwon 1 Night 2 Days','₩185,000','1 Night · 2 Days')">
+            <div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">1N2D</div></div>
+            <div class="ccard-body"><h4>Suwon 1 Night 2 Days</h4><p>Full tour + night lantern walk + hanok stay + morning market breakfast. The immersive local experience.</p><div class="ccard-foot"><span class="ccard-price">₩185,000</span><button class="ccard-book">Reserve</button></div></div>
+          </div>
+          <div class="ccard" onclick="openBooking('Royal Suwon 2 Nights','₩290,000','2 Nights · 3 Days')">
+            <div class="ccard-img" style="background:#c0b488"><div class="ccard-badge">Flagship</div><div class="ccard-dur">2N3D</div></div>
+            <div class="ccard-body"><h4>Royal Suwon 2 Nights</h4><p>Palace performance, traditional crafts, night fortress walk, and a farewell local dinner.</p><div class="ccard-foot"><span class="ccard-price">₩290,000</span><button class="ccard-book">Reserve</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="panel-season">
+        <div class="cpanel-hdr"><h3>Tours by Season</h3><p>Suwon changes beautifully every season. Each course is designed around the best of that time of year.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Cherry Blossom Walk','₩52,000','Spring · 4hrs')"><div class="ccard-img" style="background:#d8c8c0"><div class="ccard-dur">Spring</div></div><div class="ccard-body"><h4>Cherry Blossom Walk</h4><p>Walk the Hwaseong wall lined with cherry blossoms. Best March–April.</p><div class="ccard-foot"><span class="ccard-price">₩52,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Summer Night Market Walk','₩48,000','Summer · 3hrs')"><div class="ccard-img" style="background:#c0c8b8"><div class="ccard-dur">Summer</div></div><div class="ccard-body"><h4>Summer Night Market Walk</h4><p>Evening stroll through Jidong and Paldalmun markets as the city cools down.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Autumn Fortress & Foliage','₩65,000','Autumn · 5hrs')"><div class="ccard-img" style="background:#d4c0a0"><div class="ccard-badge">Most Loved</div><div class="ccard-dur">Autumn</div></div><div class="ccard-body"><h4>Autumn Fortress &amp; Foliage</h4><p>Golden and crimson leaves against 200-year-old stone walls in October.</p><div class="ccard-foot"><span class="ccard-price">₩65,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Winter Lantern Night Walk','₩58,000','Winter · 3hrs')"><div class="ccard-img" style="background:#c4c8d0"><div class="ccard-dur">Winter</div></div><div class="ccard-body"><h4>Winter Lantern Night Walk</h4><p>Walk the illuminated fortress. Make your own lantern and release it at the eastern gate.</p><div class="ccard-foot"><span class="ccard-price">₩58,000</span><button class="ccard-book">Reserve</button></div></div></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="panel-hwaseong">
+        <div class="cpanel-hdr"><h3>Hwaseong Fortress</h3><p>UNESCO World Heritage. Built 1796. Every stone has a story.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Hwaseong Heritage Walk','₩45,000','3hrs')"><div class="ccard-img" style="background:#c8bc98"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Heritage Walk</h4><p>Full circuit with a history-focused English guide. All 4 gates + Seojangdae command post.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Royal Performance & Palace','₩62,000','4hrs')"><div class="ccard-img" style="background:#d4c8a0"><div class="ccard-dur">4hrs</div></div><div class="ccard-body"><h4>Royal Performance &amp; Palace</h4><p>Guard-changing ceremony at Haenggung Palace, then explore the inner courts.</p><div class="ccard-foot"><span class="ccard-price">₩62,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Night Fortress Walk','₩55,000','Evening')"><div class="ccard-img" style="background:#c8c0b0"><div class="ccard-dur">Evening</div></div><div class="ccard-body"><h4>Night Fortress Walk</h4><p>Hwaseong illuminated after dark — lantern light on 200-year-old stone walls.</p><div class="ccard-foot"><span class="ccard-price">₩55,000</span><button class="ccard-book">Reserve</button></div></div></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="panel-walk">
+        <div class="cpanel-hdr"><h3>Walking Routes</h3><p>On foot, at a local pace — the only real way to feel a city.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Palsaek-gil Heritage Trail','₩42,000','3hrs')"><div class="ccard-img" style="background:#c4c8b8"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Palsaek-gil Heritage Trail</h4><p>The scenic 8-colour trail connecting Suwon's historic gates, ponds, and traditional neighbourhoods.</p><div class="ccard-foot"><span class="ccard-price">₩42,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Royal Alley Walk','₩45,000','2.5hrs')"><div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Royal Alley Walk</h4><p>The hidden lanes of Haenggung-dong — indie cafés, craft studios, and the alleyways locals love.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="panel-market">
+        <div class="cpanel-hdr"><h3>Market Tours</h3><p>Five real, active traditional markets. Not tourist traps — real Suwon life.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Paldalmun Market Morning','₩48,000','3hrs')"><div class="ccard-img" style="background:#d0c4a0"><div class="ccard-dur">Morning</div></div><div class="ccard-body"><h4>Paldalmun Market Morning</h4><p>The city's biggest traditional market at its best — dawn deliveries, grandma's banchan stalls.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Galbi Street Food Tour','₩75,000','3hrs')"><div class="ccard-img" style="background:#c8c0a0"><div class="ccard-badge">Fan Favourite</div><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Galbi Street Food Tour</h4><p>Ingye-dong galbi street + palace-side snack stalls + Paldalmun street food square.</p><div class="ccard-foot"><span class="ccard-price">₩75,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Jidong & Yeongdong Markets','₩44,000','2.5hrs')"><div class="ccard-img" style="background:#c4c8b8"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Jidong &amp; Yeongdong Markets</h4><p>Two neighbourhood markets — dried goods, textiles, seasonal produce, and the best hotteok in town.</p><div class="ccard-foot"><span class="ccard-price">₩44,000</span><button class="ccard-book">Reserve</button></div></div></div>
+        </div>
+      </div>
+
+      <div class="cpanel" id="panel-private">
+        <div class="cpanel-hdr"><h3>Private &amp; Custom Tours</h3><p>Your group, your pace, your Suwon.</p></div>
+        <div class="course-grid">
+          <div class="ccard" onclick="openBooking('Private Custom Tour','From ₩150,000','Your group')"><div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">Flexible</div></div><div class="ccard-body"><h4>Private Custom Tour</h4><p>Tell us what you love — history, food, photography — and we build the day around you.</p><div class="ccard-foot"><span class="ccard-price">From ₩150,000</span><button class="ccard-book">Enquire</button></div></div></div>
+          <div class="ccard" onclick="openBooking('AI Smart Itinerary','From ₩130,000','48hr notice')"><div class="ccard-img" style="background:#c8c0b0"><div class="ccard-dur">Custom</div></div><div class="ccard-body"><h4>AI Smart Itinerary</h4><p>Answer a few questions about your style. Our AI builds a personalised Suwon day — our guide brings it to life.</p><div class="ccard-foot"><span class="ccard-price">From ₩130,000</span><button class="ccard-book">Enquire</button></div></div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- COURSES -->
-<section class="courses" id="courses">
-  <div class="section-eyebrow">Tour Courses</div>
-  <div class="section-title">Choose your <em>experience</em></div>
-  <div class="section-sub">Six ways to discover Suwon like a local</div>
-
-  <div class="tab-row">
-    <button class="tab-btn active" onclick="switchTab(this,'tab-duration')">By Duration</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-season')">By Season</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-hwaseong')">Hwaseong</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-walk')">Walking</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-market')">Markets</button>
-    <button class="tab-btn" onclick="switchTab(this,'tab-private')">Private</button>
+<!-- HOW IT WORKS -->
+<section class="sec how fade-up" id="how">
+  <div class="sec-tag">Simple Process</div>
+  <h2 class="sec-h2">How It <em>Works</em></h2>
+  <p class="sec-sub">From first click to first bite — booking takes minutes.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h4>Pick a Course</h4><p>Browse by duration, season, or theme. Read what each tour includes and who it's for.</p></div>
+    <div class="step"><div class="step-num">02</div><h4>Choose Your Date</h4><p>Select from available dates and group size. Maximum 8 guests per tour — always.</p></div>
+    <div class="step"><div class="step-num">03</div><h4>Book &amp; Pay</h4><p>Secure your spot. Confirmation email sent to you within 24 hours.</p></div>
+    <div class="step"><div class="step-num">04</div><h4>Live Like a Local</h4><p>Meet your guide, explore, eat, discover. Leave with stories no guidebook has.</p></div>
   </div>
+</section>
 
-  <!-- BY DURATION -->
-  <div class="tab-panel active" id="tab-duration">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">Half Day · 3–4 hrs</div>
-        <div class="course-name">Fortress <em>Highlights</em></div>
-        <div class="course-desc">The essential Suwon loop — Paldalmun Gate, the fortress wall ridge, Hwaseong Haenggung Palace, and the galbi street. Perfect first visit.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">3–4 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Group</div><div class="course-meta-val">Max 8</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Includes</div><div class="course-meta-val">Walking + Food</div></div>
-        </div>
-        <div class="course-price">₩65,000 / person</div>
-        <button class="course-book" onclick="openModal('Fortress Highlights','₩65,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Full Day · 7–8 hrs</div>
-        <div class="course-name">Deep <em>Suwon</em></div>
-        <div class="course-desc">The complete experience — fortress, palace, Haenggung market, traditional craft workshops, evening galbi dinner. Everything in one day.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">7–8 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Group</div><div class="course-meta-val">Max 8</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Includes</div><div class="course-meta-val">Lunch + Dinner</div></div>
-        </div>
-        <div class="course-price">₩120,000 / person</div>
-        <button class="course-book" onclick="openModal('Deep Suwon','₩120,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Overnight · 2 days</div>
-        <div class="course-name">Suwon <em>Immersion</em></div>
-        <div class="course-desc">Two full days — hanok stay, morning fortress walk, night market, cooking class, day trip to Suwon Folk Village. The real deal.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">2 days / 1 night</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Group</div><div class="course-meta-val">Max 6</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Includes</div><div class="course-meta-val">Stay + All meals</div></div>
-        </div>
-        <div class="course-price">₩280,000 / person</div>
-        <button class="course-book" onclick="openModal('Suwon Immersion (2 Days)','₩280,000 / person')">Reserve</button>
-      </div>
+<!-- PARTNER -->
+<section class="sec partners fade-up" id="partners">
+  <div class="sec-tag">Our Partners</div>
+  <h2 class="sec-h2">Real Local <em>Connections</em></h2>
+  <p class="sec-sub">Every stop on your tour supports a real Suwon local.</p>
+  <div class="partner-card">
+    <div class="partner-img">
+      <svg viewBox="0 0 340 280" width="340" height="280" xmlns="http://www.w3.org/2000/svg">
+        <rect width="340" height="280" fill="#d4c8a8"/>
+        <path d="M0,100 C50,78 110,65 180,76 C230,84 285,66 340,60 L340,280 L0,280Z" fill="#c4b890" opacity=".7"/>
+        <rect x="40" y="80" width="260" height="200" fill="#c8bc98" stroke="rgba(160,128,64,.25)" stroke-width=".7"/>
+        <rect x="40" y="80" width="260" height="52" fill="#b8a870"/>
+        <text x="170" y="114" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="rgba(248,245,239,.85)" font-style="italic">Micasa</text>
+        <rect x="54" y="148" width="80" height="100" rx="1" fill="rgba(160,128,64,.1)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+        <rect x="206" y="148" width="80" height="100" rx="1" fill="rgba(160,128,64,.1)" stroke="rgba(160,128,64,.2)" stroke-width=".5"/>
+        <ellipse cx="30" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+        <circle cx="30" cy="80" r="3" fill="#a08040" opacity=".6"/>
+        <ellipse cx="310" cy="80" rx="7" ry="9" fill="none" stroke="rgba(160,128,64,.5)" stroke-width=".7"/>
+        <circle cx="310" cy="80" r="3" fill="#a08040" opacity=".6"/>
+        <path d="M0,72 Q170,63 340,70" stroke="rgba(160,128,64,.3)" stroke-width=".6" fill="none"/>
+        <circle cx="60" cy="70" r="2" fill="#a08040" opacity=".6"/>
+        <circle cx="170" cy="66" r="2" fill="#a08040" opacity=".6"/>
+        <circle cx="280" cy="69" r="2" fill="#a08040" opacity=".6"/>
+      </svg>
     </div>
-  </div>
-
-  <!-- BY SEASON -->
-  <div class="tab-panel" id="tab-season">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">Spring · Mar–May</div>
-        <div class="course-name">Blossom <em>Walk</em></div>
-        <div class="course-desc">Cherry blossoms line the fortress walls in April. We walk the inner paths and garden spots that most tourists walk right past.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Best Time</div><div class="course-meta-val">Early April</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">3 hrs</div></div>
-        </div>
-        <div class="course-price">₩55,000 / person</div>
-        <button class="course-book" onclick="openModal('Blossom Walk (Spring)','₩55,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Summer · Jun–Aug</div>
-        <div class="course-name">Night <em>Fortress</em></div>
-        <div class="course-desc">Hwaseong illuminated after dark — lantern light on 200-year-old stone. Cool evening breeze, near-empty paths, unforgettable views.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Departs</div><div class="course-meta-val">7:30 PM</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">2.5 hrs</div></div>
-        </div>
-        <div class="course-price">₩60,000 / person</div>
-        <button class="course-book" onclick="openModal('Night Fortress (Summer)','₩60,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Autumn · Sep–Nov</div>
-        <div class="course-name">Golden <em>Hour</em></div>
-        <div class="course-desc">Autumn foliage turns the mountain ridge around Hwaseong into a painting. We time the walk for the best light of the day.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Best Time</div><div class="course-meta-val">Late October</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">4 hrs</div></div>
-        </div>
-        <div class="course-price">₩65,000 / person</div>
-        <button class="course-book" onclick="openModal('Golden Hour (Autumn)','₩65,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Winter · Dec–Feb</div>
-        <div class="course-name">Snow <em>Palace</em></div>
-        <div class="course-desc">Hwaseong Haenggung in snow is extraordinary. We finish with hot makgeolli and jeon in a local spot near the palace gates.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">3 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Includes</div><div class="course-meta-val">Snacks + Drinks</div></div>
-        </div>
-        <div class="course-price">₩60,000 / person</div>
-        <button class="course-book" onclick="openModal('Snow Palace (Winter)','₩60,000 / person')">Reserve</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HWASEONG -->
-  <div class="tab-panel" id="tab-hwaseong">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">UNESCO Heritage</div>
-        <div class="course-name">Wall <em>Circuit</em></div>
-        <div class="course-desc">All 5.7km of the fortress wall, end to end. Watchtowers, archery platforms, command posts — the full story of King Jeongjo's masterpiece.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Distance</div><div class="course-meta-val">5.7 km</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">4.5 hrs</div></div>
-        </div>
-        <div class="course-price">₩75,000 / person</div>
-        <button class="course-book" onclick="openModal('Hwaseong Wall Circuit','₩75,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Palace + History</div>
-        <div class="course-name">Haenggung <em>Deep Dive</em></div>
-        <div class="course-desc">The temporary palace where King Jeongjo held court. We go beyond the main hall into the servants' quarters, the garden, the stories most guides skip.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">3 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Focus</div><div class="course-meta-val">History + Architecture</div></div>
-        </div>
-        <div class="course-price">₩60,000 / person</div>
-        <button class="course-book" onclick="openModal('Haenggung Deep Dive','₩60,000 / person')">Reserve</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WALKING -->
-  <div class="tab-panel" id="tab-walk">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">Neighbourhood Walk</div>
-        <div class="course-name">Haenggung-dong <em>Street</em></div>
-        <div class="course-desc">The neighbourhood around the palace — indie cafés, murals, artisan workshops, the small alleys that Suwon locals love on weekends.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">2.5 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Pace</div><div class="course-meta-val">Relaxed</div></div>
-        </div>
-        <div class="course-price">₩45,000 / person</div>
-        <button class="course-book" onclick="openModal('Haenggung-dong Street Walk','₩45,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Sunrise Walk</div>
-        <div class="course-name">Dawn <em>Fortress</em></div>
-        <div class="course-desc">The fortress wall at 6am — golden light, nobody else around, the city waking below. The most photogenic two hours in Suwon.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Departs</div><div class="course-meta-val">5:45 AM</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">2 hrs</div></div>
-        </div>
-        <div class="course-price">₩50,000 / person</div>
-        <button class="course-book" onclick="openModal('Dawn Fortress Walk','₩50,000 / person')">Reserve</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MARKETS -->
-  <div class="tab-panel" id="tab-market">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">Food Tour</div>
-        <div class="course-name">Suwon <em>Galbi</em> Trail</div>
-        <div class="course-desc">The definitive Suwon food tour — Ingye-dong galbi street, the tteok shops near the palace, street food on Paldalmun square. You will eat a lot.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">3 hrs</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Includes</div><div class="course-meta-val">All tastings</div></div>
-        </div>
-        <div class="course-price">₩85,000 / person</div>
-        <button class="course-book" onclick="openModal('Suwon Galbi Trail','₩85,000 / person')">Reserve</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">Night Market</div>
-        <div class="course-name">Haenggung <em>Night</em></div>
-        <div class="course-desc">The Friday and Saturday night market behind the palace. Tteok, hotteok, makgeolli on the palace steps. Zero English menus — that's the point.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Days</div><div class="course-meta-val">Fri &amp; Sat only</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Departs</div><div class="course-meta-val">7:00 PM</div></div>
-        </div>
-        <div class="course-price">₩55,000 / person</div>
-        <button class="course-book" onclick="openModal('Haenggung Night Market','₩55,000 / person')">Reserve</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRIVATE -->
-  <div class="tab-panel" id="tab-private">
-    <div class="course-grid">
-      <div class="course-card">
-        <div class="course-tag">Private · Fully Custom</div>
-        <div class="course-name">Your <em>Suwon</em></div>
-        <div class="course-desc">Tell us what you love — history, food, photography, architecture, slow walks — and we'll build the day around you. Completely flexible.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Group</div><div class="course-meta-val">1–8 guests</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-val">You decide</div></div>
-        </div>
-        <div class="course-price">From ₩150,000</div>
-        <button class="course-book" onclick="openModal('Private Custom Tour','From ₩150,000')">Enquire</button>
-      </div>
-      <div class="course-card">
-        <div class="course-tag">AI-Assisted Custom</div>
-        <div class="course-name">Smart <em>Itinerary</em></div>
-        <div class="course-desc">Answer a few questions about your travel style, interests, and pace. Our AI co-pilot builds a personalized Suwon day — then our guide brings it to life.</div>
-        <div class="course-meta">
-          <div class="course-meta-item"><div class="course-meta-label">Group</div><div class="course-meta-val">1–8 guests</div></div>
-          <div class="course-meta-item"><div class="course-meta-label">Lead Time</div><div class="course-meta-val">48 hrs notice</div></div>
-        </div>
-        <div class="course-price">From ₩130,000</div>
-        <button class="course-book" onclick="openModal('AI Smart Itinerary','From ₩130,000')">Enquire</button>
-      </div>
+    <div class="partner-info">
+      <span class="ptag">Partner Restaurant</span>
+      <div class="pname">Mi<em>casa</em> 行宮洞 Pasta</div>
+      <div class="pkr">행궁동파스타</div>
+      <div class="psep"></div>
+      <p class="pdesc">Handmade pasta and slow-cooked Italian dishes in a renovated hanok. The only Italian restaurant in Haenggung-dong — and it's extraordinary. The owner trained in Italy and came home to Suwon. Tour guests receive 10% off.</p>
     </div>
   </div>
 </section>
 
-<!-- PARTNERS -->
-<section class="partners" id="partners">
-  <div class="section-eyebrow">Local Partners</div>
-  <div class="section-title">Where we <em>take you</em></div>
-  <div class="section-sub">Hand-picked local spots — each one a story</div>
-  <div class="partner-grid">
-    <div class="partner-card">
-      <div class="partner-tag">Restaurant Partner</div>
-      <div class="partner-name">Mi<em>casa</em></div>
-      <div class="partner-kr">행궁동파스타</div>
-      <div class="partner-sep"></div>
-      <div class="partner-desc">
-        A hidden pasta spot tucked into the Haenggung-dong alleys — Italian technique, Korean heart. The owner trained in Italy and came home to Suwon. We end several of our evening tours here.
-      </div>
+<!-- PHOTO CTA -->
+<div class="photo-cta fade-up">
+  <div class="pcta-bg">
+    <svg viewBox="0 0 1440 520" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="ctag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8bc98"/><stop offset="60%" stop-color="#b8a878"/><stop offset="100%" stop-color="#a89860"/></linearGradient></defs>
+      <rect width="1440" height="520" fill="url(#ctag)"/>
+      <circle cx="1100" cy="140" r="110" fill="#f5e0a0" opacity=".2"/>
+      <path d="M0,260 C130,215 280,192 460,208 C600,220 720,185 900,178 C1040,172 1180,198 1440,184 L1440,520 L0,520Z" fill="#b8a870" opacity=".55"/>
+      <rect x="0" y="328" width="1440" height="192" fill="#c8bc98" opacity=".6"/>
+      <!-- fortress silhouette -->
+      <rect x="380" y="210" width="200" height="140" fill="#b8a878" opacity=".7"/>
+      <polygon points="380,210 480,172 580,210" fill="#b0a070" opacity=".7"/>
+      <polyline points="380,210 480,172 580,210" fill="none" stroke="rgba(160,128,64,.4)" stroke-width="1"/>
+      <circle cx="480" cy="180" r="5" fill="#a08040" opacity=".6"/>
+      <line x1="480" y1="172" x2="480" y2="157" stroke="rgba(160,128,64,.5)" stroke-width=".8"/>
+      <rect x="0" y="320" width="1440" height="32" fill="#c0b488" opacity=".7"/>
+      <!-- battlements minimal -->
+      <rect x="50"   y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="90"   y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="130"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="620"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="660"  y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="1050" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="1090" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <rect x="1350" y="296" width="26" height="26" fill="#c0b488" opacity=".7"/>
+      <line x1="0" y1="322" x2="380" y2="322" stroke="rgba(160,128,64,.28)" stroke-width=".6"/>
+      <line x1="580" y1="322" x2="1440" y2="322" stroke="rgba(160,128,64,.28)" stroke-width=".6"/>
+    </svg>
+  </div>
+  <div class="pcta-ov"></div>
+  <div class="pcta-ring1"></div>
+  <div class="pcta-ring2"></div>
+  <div class="pcta-content">
+    <div class="pcta-tag">Your Suwon Story</div>
+    <h2 class="pcta-h2">It starts <em>here.</em></h2>
+    <p class="pcta-sub">Join travellers from 30+ countries who chose depth over distance.</p>
+    <div class="cta-row">
+      <a href="#tours" class="btn-ink">Browse All Tours</a>
+      <a href="https://wa.me/821073036386" class="btn-outline-ink">Chat on WhatsApp</a>
     </div>
   </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="about-ring r1"></div>
-  <div class="about-ring r2"></div>
-  <div class="about-inner">
-    <div class="section-eyebrow">About Us</div>
-    <div class="section-title">Born <em>here.</em><br>Guide <em>here.</em></div>
-    <div class="section-sub">Suwon is our home, not our backdrop</div>
-    <div class="sep" style="background:rgba(212,185,140,0.3)"></div>
-    <p class="about-text">
-      Like a Local was built on one simple idea — the best guide is someone who actually lives there. Not someone who memorised a script, but someone who knows which galbi place the locals actually go to, which gate of the fortress has the best sunrise angle, which market stall has been run by the same grandmother for thirty years.
-    </p>
-    <p class="about-text">
-      We keep our groups small because real experience doesn't scale. Eight guests maximum. Always.
-    </p>
-    <div class="about-contact">
-      <div class="about-contact-row">
-        <div class="about-contact-label">Founder</div>
-        <div class="about-contact-val">Jong-Gil Lim · 010-7103-6386</div>
-      </div>
-      <div class="about-contact-row">
-        <div class="about-contact-label">Manager</div>
-        <div class="about-contact-val">Ye-Eun Park · 010-8227-1610</div>
-      </div>
-      <div class="about-contact-row">
-        <div class="about-contact-label">Email</div>
-        <div class="about-contact-val">likealocal_suwonteam@likealocalsuwon.com</div>
-      </div>
-      <div class="about-contact-row">
-        <div class="about-contact-label">Instagram</div>
-        <div class="about-contact-val">@likealocal_suwon</div>
-      </div>
-      <div class="about-contact-row">
-        <div class="about-contact-label">Address</div>
-        <div class="about-contact-val">팔달구, 수원시, 경기도</div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-gold-line"></div>
-  <div class="footer-logo">Like <em>a</em> Local</div>
-  <div class="footer-links">
-    <a href="#courses">Courses</a>
-    <a href="#partners">Partners</a>
-    <a href="#about">About</a>
-    <a href="https://www.instagram.com/likealocal_suwon" target="_blank">Instagram</a>
+  <div class="footer-brand">
+    <div class="f-logo">Like <em>a</em> Local</div>
+    <div class="f-sub">Suwon · Korea</div>
+    <p>Small-group English tours in Suwon, South Korea.<br>UNESCO Heritage · Local Food · Hidden Stories<br><br>경기도 수원시 팔달구 화서문로31번길 14-16, 2층</p>
   </div>
-  <div class="footer-copy">© 2025 Like a Local · Suwon, Korea · likealocalsuwon.com</div>
+  <div><h5>Experiences</h5><ul><li><a href="#tours">By Duration</a></li><li><a href="#tours">By Season</a></li><li><a href="#tours">Hwaseong Tours</a></li><li><a href="#tours">Market Tours</a></li><li><a href="#tours">Private Tours</a></li></ul></div>
+  <div><h5>Info</h5><ul><li><a href="#why">Why Suwon</a></li><li><a href="#how">How It Works</a></li><li><a href="#partners">Partners</a></li><li><a href="#">FAQ</a></li></ul></div>
+  <div><h5>Connect</h5><ul><li><a href="https://www.instagram.com/likealocal_suwon" target="_blank">Instagram</a></li><li><a href="https://wa.me/821073036386">WhatsApp</a></li><li><a href="#">KakaoTalk</a></li><li><a href="mailto:likealocal_suwonteam@likealocalsuwon.com">Email Us</a></li></ul></div>
 </footer>
+<div class="footer-bot">
+  <span>© 2026 Like a Local · Suwon, Korea · likealocalsuwon.com</span>
+  <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+</div>
 
-<!-- BOOKING MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModalOverlay(event)">
   <div class="modal">
-    <div id="modal-form-content">
-      <div class="modal-header">
-        <div>
-          <span class="modal-tag">Reserve Your Spot</span>
-          <div class="modal-title" id="modal-title">Tour Name</div>
-        </div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="mfc">
+      <div class="modal-hdr">
+        <div><span class="modal-tag2">Reserve Your Spot</span><h3 id="modal-title">Tour</h3></div>
+        <button class="modal-x" onclick="closeModal()">✕</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-bdy">
         <div class="modal-price-box">
-          <span class="pname" id="modal-pname">Tour</span>
-          <span class="pprice" id="modal-price">₩00,000</span>
+          <span class="pn" id="modal-pname">Tour</span>
+          <span class="pp" id="modal-price">₩00,000</span>
         </div>
         <form id="booking-form" action="https://formspree.io/f/mzdqpavp" method="POST">
-          <input type="hidden" name="tour_name" id="form-tour-name">
-          <input type="hidden" name="tour_price" id="form-tour-price">
-          <div class="form-row">
-            <div class="form-group">
-              <label>First Name *</label>
-              <input type="text" name="first_name" placeholder="e.g. Sarah" required>
-            </div>
-            <div class="form-group">
-              <label>Last Name *</label>
-              <input type="text" name="last_name" placeholder="e.g. Johnson" required>
-            </div>
+          <input type="hidden" name="Tour Name" id="ftn">
+          <input type="hidden" name="Price" id="ftp">
+          <div class="fg-row">
+            <div class="fg"><label>First Name</label><input type="text" name="First Name" placeholder="e.g. Sarah" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" name="Last Name" placeholder="e.g. Kim" required></div>
           </div>
-          <div class="form-group">
-            <label>Email *</label>
-            <input type="email" name="email" placeholder="your@email.com" required>
+          <div class="fg"><label>Email Address</label><input type="email" name="Email" placeholder="sarah@email.com" required></div>
+          <div class="fg-row">
+            <div class="fg"><label>Preferred Date</label><input type="date" name="Preferred Date" required></div>
+            <div class="fg"><label>Number of Guests</label><select name="Guests"><option>1 guest</option><option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5 guests</option><option>6 guests</option><option>7 guests</option><option>8 guests</option></select></div>
           </div>
-          <div class="form-group">
-            <label>Phone / WhatsApp</label>
-            <input type="tel" name="phone" placeholder="+82 10 0000 0000">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Preferred Date *</label>
-              <input type="date" name="date" required>
-            </div>
-            <div class="form-group">
-              <label>Number of Guests *</label>
-              <select name="guests" required>
-                <option value="">Select</option>
-                <option>1</option><option>2</option><option>3</option>
-                <option>4</option><option>5</option><option>6</option>
-                <option>7</option><option>8</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Special Requests / Questions</label>
-            <textarea name="message" placeholder="Dietary restrictions, accessibility needs, anything else…"></textarea>
-          </div>
-          <button type="submit" class="form-submit">Send Booking Request</button>
-          <p class="form-note">We'll confirm your booking within 24 hours via email.</p>
+          <div class="fg"><label>Special Requests (optional)</label><input type="text" name="Special Requests" placeholder="Dietary needs, accessibility, etc."></div>
+          <button type="submit" class="btn-submit" id="submit-btn">Confirm Reservation</button>
+          <p class="modal-note">No payment today — we confirm availability and send a payment link within 24 hours.</p>
         </form>
       </div>
     </div>
-    <div class="modal-success" id="modal-success">
-      <div class="success-icon">✦</div>
-      <div class="success-title">Request Sent</div>
-      <p class="success-sub">Thank you! We'll confirm your booking within 24 hours.<br>Check your email for our reply.</p>
+    <div class="success-scr" id="success-scr">
+      <div class="success-mark">✦</div>
+      <h3>You're on the list.</h3>
+      <p>We've received your reservation request.<br>We'll confirm your spot within 24 hours.</p>
     </div>
   </div>
 </div>
 
 <script>
-// ── TABS ──────────────────────────────────────────────────────────────────────
-function switchTab(btn, panelId) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+// scroll nav
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.borderBottomColor=window.scrollY>50?'var(--sand)':'transparent';
+});
+
+// video
+function playVideo(){
+  document.getElementById('vp').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1" allow="autoplay;encrypted-media" allowfullscreen style="border:none;display:block;position:absolute;inset:0"></iframe>';
+}
+
+// tabs
+function switchTab(btn,id){
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.cpanel').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById(panelId).classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
-function openModal(tourName, price) {
-  document.getElementById('modal-title').textContent = tourName;
-  document.getElementById('modal-pname').textContent = tourName;
-  document.getElementById('modal-price').textContent = price;
-  document.getElementById('form-tour-name').value = tourName;
-  document.getElementById('form-tour-price').value = price;
+// modal
+function openBooking(name,price,meta){
+  document.getElementById('modal-title').textContent=name;
+  document.getElementById('modal-pname').textContent=name+(meta?' · '+meta:'');
+  document.getElementById('modal-price').textContent=price;
+  document.getElementById('ftn').value=name+(meta?' · '+meta:'');
+  document.getElementById('ftp').value=price;
+  document.getElementById('mfc').style.display='block';
+  document.getElementById('success-scr').classList.remove('show');
+  document.getElementById('booking-form').reset();
   document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalOverlay(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
-}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function closeModalOverlay(e){if(e.target===document.getElementById('modal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-// ── FORMSPREE SUBMIT ──────────────────────────────────────────────────────────
-document.getElementById('booking-form').addEventListener('submit', async function(e) {
+// formspree
+document.getElementById('booking-form').addEventListener('submit',async function(e){
   e.preventDefault();
-  const btn = this.querySelector('.form-submit');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  try {
-    const res = await fetch(this.action, {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      document.getElementById('modal-form-content').style.display = 'none';
-      document.getElementById('modal-success').classList.add('show');
-      this.reset();
-    } else {
-      btn.textContent = 'Error — try again';
-      btn.disabled = false;
-    }
-  } catch {
-    btn.textContent = 'Error — try again';
-    btn.disabled = false;
-  }
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    const r=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}});
+    if(r.ok){document.getElementById('mfc').style.display='none';document.getElementById('success-scr').classList.add('show');}
+    else{btn.textContent='Error — try again';btn.disabled=false;}
+  }catch{btn.textContent='Error — try again';btn.disabled=false;}
 });
 
-// reset modal state on close
-document.getElementById('modal').addEventListener('transitionend', function() {
-  if (!this.classList.contains('open')) {
-    document.getElementById('modal-form-content').style.display = '';
-    document.getElementById('modal-success').classList.remove('show');
-  }
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+// scroll fade
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.07});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
