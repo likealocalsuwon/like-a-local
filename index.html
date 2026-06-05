@@ -318,33 +318,67 @@ nav{
 
 /* ══ TOURS ══ */
 .tours{background:var(--cream)}
-.courses-layout{display:grid;grid-template-columns:240px 1fr;gap:3rem;align-items:start;margin-top:3rem}
-.course-tabs{display:flex;flex-direction:column;gap:0;position:sticky;top:90px;border:.5px solid var(--beige)}
+.courses-layout{display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start;margin-top:3rem}
+.course-tabs{
+  display:flex;flex-direction:column;gap:8px;
+  position:sticky;top:90px;
+}
 .ctab{
-  display:flex;align-items:center;gap:16px;
-  padding:16px 20px;cursor:pointer;border:none;background:transparent;
-  text-align:left;transition:all .2s;
-  border-bottom:.5px solid var(--beige);
-  border-left:2px solid transparent;width:100%;
+  position:relative;overflow:hidden;
+  height:72px;border:none;cursor:pointer;
+  text-align:left;padding:0;
+  background:var(--beige);
+  transition:all .35s cubic-bezier(.25,.46,.45,.94);
+  outline:none;
+  border-left:2px solid transparent;
+  width:100%;
+  display:block;
 }
-.ctab:last-child{border-bottom:none}
-.ctab-icon{
-  font-size:18px;width:32px;text-align:center;flex-shrink:0;
-  transition:transform .2s;
+/* photo background per tab */
+.ctab-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;
+  transition:opacity .4s ease;
+  transform:scale(1.04);
+  transition:opacity .4s ease, transform .4s ease;
 }
-.ctab:hover .ctab-icon{transform:scale(1.15)}
+.ctab:hover .ctab-bg,.ctab.active .ctab-bg{opacity:1;transform:scale(1)}
+/* dark scrim */
+.ctab::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(26,21,16,.42);
+  opacity:0;transition:opacity .35s;
+}
+.ctab:hover::after,.ctab.active::after{opacity:1}
+/* text row */
+.ctab-inner{
+  position:relative;z-index:2;
+  display:flex;align-items:center;gap:14px;
+  padding:0 18px;height:100%;
+}
+.ctab-num{
+  font-family:var(--serif);font-size:22px;font-weight:300;
+  color:rgba(26,21,16,.25);line-height:1;flex-shrink:0;
+  transition:color .3s;
+  min-width:28px;
+}
+.ctab:hover .ctab-num,.ctab.active .ctab-num{color:rgba(248,245,239,.55)}
 .ctab-label{
-  font-family:var(--sans);font-size:10px;font-weight:300;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--mid);
-  display:block;transition:color .2s;
+  font-family:var(--sans);font-size:10px;font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--char);display:block;transition:color .3s;
+  line-height:1.2;
 }
+.ctab:hover .ctab-label,.ctab.active .ctab-label{color:#f8f5ef}
 .ctab-count{
-  font-family:var(--sans);font-size:9px;font-weight:200;
-  color:var(--warm);letter-spacing:.06em;display:block;margin-top:2px;
+  font-family:var(--sans);font-size:8.5px;font-weight:200;
+  color:var(--mid);letter-spacing:.08em;
+  display:block;margin-top:3px;transition:color .3s;
 }
-.ctab:hover{background:var(--ivory);border-left-color:var(--sand)}
-.ctab.active{background:var(--ivory);border-left-color:var(--gold)}
-.ctab.active .ctab-label{color:var(--gold)}
+.ctab:hover .ctab-count,.ctab.active .ctab-count{color:rgba(248,245,239,.45)}
+/* active left accent */
+.ctab.active{border-left-color:var(--gold)}
 
 .course-panels{min-height:400px}
 .cpanel{display:none;animation:fadeUp .3s ease}
@@ -679,6 +713,38 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 .media-credit strong{font-weight:300;color:var(--mid)}
 @media(max-width:960px){.media-credit{padding:14px 24px}}
 
+
+/* refined course card */
+.ccard-img{position:relative}
+.ccard-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(26,21,16,.28) 100%);
+  pointer-events:none;
+}
+.ccard{border-radius:0}
+.ccard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94);
+  z-index:2;
+}
+.ccard:hover::before{transform:scaleX(1)}
+/* ccard-book pill style */
+.ccard-book{
+  border-radius:0;
+  font-size:8.5px;font-weight:400;letter-spacing:.24em;
+}
+/* badge pill */
+.ccard-badge{
+  border-radius:0;
+  font-size:7.5px;letter-spacing:.18em;
+}
+/* duration pill */
+.ccard-dur{
+  border-radius:0;
+  font-size:8px;letter-spacing:.18em;
+}
+
 </style>
 </head>
 <body>
@@ -836,12 +902,66 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
   <p class="sec-sub">From half-day walks to overnight stays — filter by duration, season, or theme.</p>
   <div class="courses-layout">
     <div class="course-tabs">
-      <button class="ctab active" onclick="switchTab(this,'duration')"><span class="ctab-icon">🗓️</span><div><span class="ctab-label">By Duration</span><span class="ctab-count">Half Day · Full Day · Overnight</span></div></button>
-      <button class="ctab" onclick="switchTab(this,'season')"><span class="ctab-icon">🌸</span><div><span class="ctab-label">By Season</span><span class="ctab-count">Spring · Summer · Autumn · Winter</span></div></button>
-      <button class="ctab" onclick="switchTab(this,'hwaseong')"><span class="ctab-icon">🏯</span><div><span class="ctab-label">Hwaseong Fortress</span><span class="ctab-count">Heritage · Night · Performance</span></div></button>
-      <button class="ctab" onclick="switchTab(this,'walk')"><span class="ctab-icon">🚶</span><div><span class="ctab-label">Walking Routes</span><span class="ctab-count">Palsaek-gil · Royal Alley</span></div></button>
-      <button class="ctab" onclick="switchTab(this,'market')"><span class="ctab-icon">🧺</span><div><span class="ctab-label">Market Tours</span><span class="ctab-count">Paldalmun · Jidong · Galbi St</span></div></button>
-      <button class="ctab" onclick="switchTab(this,'private')"><span class="ctab-icon">✨</span><div><span class="ctab-label">Private &amp; Custom</span><span class="ctab-count">Tailored for your group</span></div></button>
+      <button class="ctab active" onclick="switchTab(this,'duration')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">01</span>
+          <div>
+            <span class="ctab-label">By Duration</span>
+            <span class="ctab-count">Half Day · Full Day · Overnight</span>
+          </div>
+        </div>
+      </button>
+      <button class="ctab" onclick="switchTab(this,'season')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">02</span>
+          <div>
+            <span class="ctab-label">By Season</span>
+            <span class="ctab-count">Spring · Summer · Autumn · Winter</span>
+          </div>
+        </div>
+      </button>
+      <button class="ctab" onclick="switchTab(this,'hwaseong')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">03</span>
+          <div>
+            <span class="ctab-label">Hwaseong Fortress</span>
+            <span class="ctab-count">Heritage · Night · Performance</span>
+          </div>
+        </div>
+      </button>
+      <button class="ctab" onclick="switchTab(this,'walk')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">04</span>
+          <div>
+            <span class="ctab-label">Walking Routes</span>
+            <span class="ctab-count">Palsaek-gil · Royal Alley</span>
+          </div>
+        </div>
+      </button>
+      <button class="ctab" onclick="switchTab(this,'market')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">05</span>
+          <div>
+            <span class="ctab-label">Market Tours</span>
+            <span class="ctab-count">Paldalmun · Jidong · Galbi St</span>
+          </div>
+        </div>
+      </button>
+      <button class="ctab" onclick="switchTab(this,'private')">
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-inner">
+          <span class="ctab-num">06</span>
+          <div>
+            <span class="ctab-label">Private &amp; Custom</span>
+            <span class="ctab-count">Tailored for your group</span>
+          </div>
+        </div>
+      </button>
     </div>
     <div class="course-panels">
 
