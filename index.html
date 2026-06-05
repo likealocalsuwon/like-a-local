@@ -654,6 +654,31 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 .hero-tag{color:rgba(212,185,140,.8)!important}
 .hero-tag::before{background:rgba(212,185,140,.6)!important}
 
+
+/* hero video tag */
+.hero-video-wrap video{
+  position:absolute;top:50%;left:50%;
+  width:100vw;height:56.25vw;
+  min-height:100vh;min-width:177.78vh;
+  transform:translate(-50%,-50%);
+  object-fit:cover;
+}
+
+
+.media-credit{
+  background:var(--ivory);
+  border-top:.5px solid var(--beige);
+  padding:16px 80px;
+  font-family:var(--sans);font-size:10px;font-weight:200;
+  letter-spacing:.06em;color:var(--warm);
+  display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;
+  align-items:center;
+}
+.media-credit a{color:var(--warm);text-decoration:none}
+.media-credit a:hover{color:var(--mid)}
+.media-credit strong{font-weight:300;color:var(--mid)}
+@media(max-width:960px){.media-credit{padding:14px 24px}}
+
 </style>
 </head>
 <body>
@@ -688,10 +713,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
   <div class="tick tl"></div><div class="tick tr2"></div>
   <div class="tick bl"></div><div class="tick br"></div>
 
-  <!-- YouTube autoplay hero video -->
+  <!-- Hero background video — Source: Pexels.com (Free Commercial License, no attribution required) -->
+  <!-- Pexels Video 3740448 · pexels.com/video/3740448 -->
   <div class="hero-video-wrap">
-    <iframe src="https://www.youtube.com/embed/r7LC4-ZNnIQ?autoplay=1&mute=1&loop=1&playlist=r7LC4-ZNnIQ&controls=0&showinfo=0&rel=0&playsinline=1&modestbranding=1&start=10"
-      allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <video autoplay muted loop playsinline preload="auto"
+      poster="https://images.pexels.com/videos/3740448/pictures/preview-0.jpg">
+      <source src="https://videos.pexels.com/video-files/3740448/3740448-uhd_2560_1440_25fps.mp4" type="video/mp4">
+      <source src="https://videos.pexels.com/video-files/3740448/3740448-hd_1920_1080_25fps.mp4" type="video/mp4">
+    </video>
   </div>
 
     <!-- Subtle overlay so text reads clearly -->
@@ -737,7 +766,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
       <div class="play-ring">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <span class="vs-vlabel">Watch Our Story</span>
+      <span class="vs-vlabel">Watch: Hwaseong Fortress</span>
     </div>
   </div>
 </div>
@@ -746,22 +775,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <div class="mosaic">
   <!-- Cell 1: Fortress dawn (tall) -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=800&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="mc-caption"><span class="mc-tag">UNESCO Heritage</span><div class="mc-title">Hwaseong Fortress</div></div>
   </div>
   <!-- Cell 2: Galbi -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1529042410759-befb1204b468?w=800&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="mc-caption"><span class="mc-tag">Local Eats</span><div class="mc-title">Suwon Galbi</div></div>
   </div>
   <!-- Cell 3: Night Market (soft beige version) -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1583394293214-4741784f1e5e?w=800&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="mc-caption"><span class="mc-tag">Insider Guide</span><div class="mc-title">Haenggung Night Market</div></div>
   </div>
   <!-- Cell 4: Wide - street food tour -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=1200&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="mc-caption"><span class="mc-tag">Food Tour</span><div class="mc-title">Haenggung-dong · Local Street</div></div>
   </div>
 </div>
@@ -784,19 +813,19 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <!-- GALLERY BAND -->
 <div class="gallery-band">
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="gb-ov"><div class="gb-title">Fortress · Dawn</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1529042410759-befb1204b468?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="gb-ov"><div class="gb-title">Suwon Galbi</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1583394293214-4741784f1e5e?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
     <div class="gb-ov"><div class="gb-title">Night Market</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1522383225653-ed111181a951?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800&dpr=2')"></div>
     <div class="gb-ov"><div class="gb-title">Cherry Blossoms</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format&fit=crop')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=800&dpr=2')"></div>
     <div class="gb-ov"><div class="gb-title">Autumn Foliage</div></div></div>
 </div>
 
@@ -911,7 +940,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
   <div class="partner-card">
     <div class="partner-img">
       <img
-        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=680&q=85&auto=format&fit=crop"
+        src="https://images.pexels.com/photos/6267516/pexels-photo-6267516.jpeg?auto=compress&cs=tinysrgb&w=680&dpr=2"
         alt="Partner restaurant" style="width:100%;height:100%;min-height:260px;object-fit:cover;display:block;filter:sepia(8%) saturate(85%)">
       
     </div>
@@ -929,7 +958,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <div class="photo-cta fade-up">
   <div class="pcta-bg">
     <img
-      src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1440&q=80&auto=format&fit=crop"
+      src="https://images.pexels.com/photos/2614825/pexels-photo-2614825.jpeg?auto=compress&cs=tinysrgb&w=1920&dpr=2"
       alt="Suwon Korea" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(12%) saturate(80%) brightness(.88)">
     
   </div>
@@ -1010,7 +1039,7 @@ window.addEventListener('scroll',()=>{
 
 // video
 function playVideo(){
-  document.getElementById('vp').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/TyzBFlm_awo?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media" allowfullscreen style="border:none;display:block;position:absolute;inset:0"></iframe>';
+  document.getElementById('vp').innerHTML='<video autoplay controls playsinline loop style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"><source src="https://videos.pexels.com/video-files/5309898/5309898-hd_1920_1080_24fps.mp4" type="video/mp4"></video>';
 }
 
 // tabs
@@ -1054,5 +1083,15 @@ document.getElementById('booking-form').addEventListener('submit',async function
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.07});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
+
+<!-- MEDIA CREDITS -->
+<div class="media-credit">
+  <strong>Video &amp; Photo Credits</strong>
+  <span>Hero video: <a href="https://www.pexels.com/video/3740448" target="_blank" rel="noopener">Pexels #3740448</a></span>
+  <span>Tour video: <a href="https://www.pexels.com/video/5309898" target="_blank" rel="noopener">Pexels #5309898</a></span>
+  <span>Images: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels.com</a> — Free Commercial License</span>
+  <span>All Pexels media used under the <a href="https://www.pexels.com/license/" target="_blank" rel="noopener">Pexels License</a> (free for commercial use, no attribution required)</span>
+</div>
+
 </body>
 </html>
