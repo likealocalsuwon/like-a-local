@@ -714,174 +714,121 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 @media(max-width:960px){.media-credit{padding:14px 24px}}
 
 
-/* refined course card */
-.ccard-img{position:relative}
+
+/* ── TOUR CARD FULL REDESIGN ── */
+.course-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;
+  background:transparent!important;
+  border:none!important;
+}
+.ccard{
+  background:var(--char);
+  border:none!important;
+  border-radius:0;
+  cursor:pointer;
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94),box-shadow .35s;
+  position:relative;
+  overflow:hidden;
+  min-height:340px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.ccard:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(26,21,16,.25);
+}
+/* photo fill */
+.ccard-img{
+  position:absolute!important;
+  inset:0!important;
+  height:100%!important;
+  z-index:0;
+}
+.ccard-img svg{display:none!important}
 .ccard-img::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(26,21,16,.28) 100%);
-  pointer-events:none;
+  background:linear-gradient(to top,
+    rgba(14,12,10,.92) 0%,
+    rgba(14,12,10,.6) 45%,
+    rgba(14,12,10,.18) 75%,
+    transparent 100%);
+  z-index:1;
+  transition:background .35s;
 }
-.ccard{border-radius:0}
+.ccard:hover .ccard-img::after{
+  background:linear-gradient(to top,
+    rgba(14,12,10,.95) 0%,
+    rgba(14,12,10,.7) 50%,
+    rgba(14,12,10,.25) 78%,
+    transparent 100%);
+}
+/* photo itself */
+.ccard-photo{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+  filter:sepia(5%) saturate(88%) brightness(.88);
+}
+.ccard:hover .ccard-photo{transform:scale(1.06)}
+
+/* gold top line sweep on hover */
 .ccard::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
-  background:var(--gold);transform:scaleX(0);transform-origin:left;
-  transition:transform .35s cubic-bezier(.25,.46,.45,.94);
-  z-index:2;
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(212,185,140,.4));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+  z-index:3;
 }
 .ccard:hover::before{transform:scaleX(1)}
-/* ccard-book pill style */
+
+/* body sits above photo */
+.ccard-body{
+  position:relative;z-index:2;
+  padding:22px 22px 24px;
+}
+.ccard-body h4{
+  font-family:var(--serif);font-weight:300;font-size:22px;
+  color:#f5f0e8;margin-bottom:6px;line-height:1.15;
+}
+.ccard-body p{
+  font-size:11.5px;font-weight:300;line-height:1.7;
+  color:rgba(245,240,232,.55);margin-bottom:16px;
+}
+.ccard-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;
+  border-top:.5px solid rgba(245,240,232,.1);
+}
+.ccard-price{
+  font-family:var(--serif);font-size:20px;font-weight:300;
+  color:#d4b98c;
+}
 .ccard-book{
-  border-radius:0;
-  font-size:8.5px;font-weight:400;letter-spacing:.24em;
-}
-/* badge pill */
-.ccard-badge{
-  border-radius:0;
-  font-size:7.5px;letter-spacing:.18em;
-}
-/* duration pill */
-.ccard-dur{
-  border-radius:0;
-  font-size:8px;letter-spacing:.18em;
-}
-
-
-/* ── PARTNER CARD REDESIGN ── */
-.partner-section-inner{max-width:1100px}
-.partner-card{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  border:.5px solid var(--beige);
-  max-width:100%;
-  transition:border-color .25s;
-}
-.partner-card:hover{border-color:var(--gold)}
-
-/* LEFT: stacked photo grid */
-.partner-photos{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:280px 200px;
-  gap:2px;
-  background:var(--beige);
-  overflow:hidden;
-  border-right:.5px solid var(--beige);
-}
-.pp{overflow:hidden;position:relative}
-.pp img{width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-.pp:hover img{transform:scale(1.05)}
-.pp.wide{grid-column:1/3}
-.pp.logo-cell{
-  display:flex;align-items:center;justify-content:center;
-  background:#0e0d0c;
-}
-.pp.logo-cell img{
-  width:70%;height:70%;object-fit:contain;
-}
-
-/* RIGHT: info */
-.partner-info{padding:48px 52px;display:flex;flex-direction:column;justify-content:center}
-.ptag{font-family:var(--sans);font-size:9.5px;font-weight:300;
-  letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
-  margin-bottom:14px;display:block}
-.pname{font-family:var(--serif);font-weight:300;font-size:34px;
-  color:var(--ink);line-height:1.1;margin-bottom:4px}
-.pname em{font-style:italic}
-.pkr{font-size:13px;font-weight:300;color:var(--mid);margin-bottom:20px}
-.psep{width:36px;height:.5px;background:var(--gold);opacity:.5;margin-bottom:20px}
-.pdesc{font-size:13px;font-weight:300;line-height:1.9;color:var(--mid);margin-bottom:28px}
-.partner-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
-.ptag-pill{
   font-family:var(--sans);font-size:8.5px;font-weight:300;
-  letter-spacing:.22em;text-transform:uppercase;
-  color:var(--mid);border:.5px solid var(--beige);padding:6px 14px;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(245,240,232,.8);background:none;
+  border:.5px solid rgba(245,240,232,.25);
+  padding:8px 16px;cursor:pointer;
+  transition:all .2s;border-radius:0;
 }
-.partner-cta{
-  font-family:var(--sans);font-size:9px;font-weight:300;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--ink);
-  border:.5px solid rgba(26,21,16,.25);
-  padding:12px 28px;background:none;cursor:pointer;
-  align-self:flex-start;transition:all .2s;text-decoration:none;display:inline-block;
+.ccard:hover .ccard-book{border-color:var(--gold);color:var(--gold)}
+/* badge + duration */
+.ccard-badge{
+  position:absolute;top:14px;left:14px;z-index:3;
+  background:var(--gold);color:var(--cream);
+  font-family:var(--sans);font-size:7.5px;font-weight:300;
+  letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;
+  border-radius:0;
 }
-.partner-cta:hover{background:var(--ink);color:var(--cream)}
-
-@media(max-width:960px){
-  .partner-card{grid-template-columns:1fr}
-  .partner-photos{border-right:none;border-bottom:.5px solid var(--beige);
-    grid-template-rows:200px 140px}
-  .partner-info{padding:32px 24px}
-}
-
-
-/* ── HERO FLOATING PHOTO PANELS ── */
-.hero-photos{
-  position:absolute;
-  right:72px;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:3;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  width:220px;
-}
-.hero-photo{
-  overflow:hidden;
-  position:relative;
-}
-.hero-photo::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  border:.5px solid rgba(248,245,239,.18);
-  pointer-events:none;
-  z-index:1;
-}
-.hero-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform .7s cubic-bezier(.25,.46,.45,.94);
-  filter:sepia(8%) saturate(90%) brightness(.92);
-}
-.hero-photo:hover img{transform:scale(1.04)}
-.hero-photo.tall{height:240px}
-.hero-photo.short{height:150px}
-/* caption on each photo */
-.hp-caption{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  padding:10px 12px;
-  background:linear-gradient(to top,rgba(10,8,6,.65),transparent);
-  z-index:2;
-}
-.hp-tag{
-  font-family:var(--sans);
-  font-size:8px;font-weight:200;
-  letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(248,245,239,.65);
-  display:block;
-}
-/* thin gold vertical line connecting the two photos */
-.hero-photos::before{
-  content:'';
-  position:absolute;
-  left:-16px;top:0;bottom:0;
-  width:.5px;
-  background:linear-gradient(180deg,transparent,rgba(212,185,140,.4),transparent);
-}
-/* dot ornament at midpoint */
-.hero-photos::after{
-  content:'';
-  position:absolute;
-  left:-19px;top:50%;transform:translateY(-50%);
-  width:7px;height:7px;border-radius:50%;
-  border:.5px solid rgba(212,185,140,.45);
-}
-@media(max-width:960px){
-  .hero-photos{display:none}
+.ccard-dur{
+  position:absolute;bottom:auto;top:14px;right:14px;z-index:3;
+  background:rgba(14,12,10,.55);backdrop-filter:blur(6px);
+  color:rgba(245,240,232,.8);
+  font-family:var(--sans);font-size:8px;font-weight:200;
+  letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;
+  border-radius:0;border:.5px solid rgba(245,240,232,.15);
 }
 
 </style>
@@ -997,22 +944,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <div class="mosaic">
   <!-- Cell 1: Fortress dawn (tall) -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=800&h=640&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">UNESCO Heritage</span><div class="mc-title">Hwaseong Fortress</div></div>
   </div>
   <!-- Cell 2: Galbi -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=800&h=320&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Local Eats</span><div class="mc-title">Suwon Galbi</div></div>
   </div>
   <!-- Cell 3: Night Market (soft beige version) -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/31680696/pexels-photo-31680696.jpeg?auto=compress&cs=tinysrgb&w=800&h=320&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Insider Guide</span><div class="mc-title">Haenggung Night Market</div></div>
   </div>
   <!-- Cell 4: Wide - street food tour -->
   <div class="mc">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=1200&h=320&fit=crop')"></div>
     <div class="mc-caption"><span class="mc-tag">Food Tour</span><div class="mc-title">Haenggung-dong · Local Street</div></div>
   </div>
 </div>
@@ -1035,19 +982,19 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <!-- GALLERY BAND -->
 <div class="gallery-band">
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=260&fit=crop')"></div>
     <div class="gb-ov"><div class="gb-title">Fortress · Dawn</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600&h=260&fit=crop')"></div>
     <div class="gb-ov"><div class="gb-title">Suwon Galbi</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/31680696/pexels-photo-31680696.jpeg?auto=compress&cs=tinysrgb&w=600&h=260&fit=crop')"></div>
     <div class="gb-ov"><div class="gb-title">Night Market</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600&h=260&fit=crop')"></div>
     <div class="gb-ov"><div class="gb-title">Cherry Blossoms</div></div></div>
   <div class="gb">
-    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=800&dpr=2')"></div>
+    <div class="img-panel" style="background-image:url('https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=600&h=260&fit=crop')"></div>
     <div class="gb-ov"><div class="gb-title">Autumn Foliage</div></div></div>
 </div>
 
@@ -1059,7 +1006,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
   <div class="courses-layout">
     <div class="course-tabs">
       <button class="ctab active" onclick="switchTab(this,'duration')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">01</span>
           <div>
@@ -1069,7 +1016,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         </div>
       </button>
       <button class="ctab" onclick="switchTab(this,'season')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">02</span>
           <div>
@@ -1079,7 +1026,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         </div>
       </button>
       <button class="ctab" onclick="switchTab(this,'hwaseong')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/5765382/pexels-photo-5765382.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">03</span>
           <div>
@@ -1089,7 +1036,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         </div>
       </button>
       <button class="ctab" onclick="switchTab(this,'walk')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">04</span>
           <div>
@@ -1099,7 +1046,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         </div>
       </button>
       <button class="ctab" onclick="switchTab(this,'market')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">05</span>
           <div>
@@ -1109,7 +1056,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         </div>
       </button>
       <button class="ctab" onclick="switchTab(this,'private')">
-        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600')"></div>
+        <div class="ctab-bg" style="background-image:url('https://images.pexels.com/photos/31663811/pexels-photo-31663811.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')"></div>
         <div class="ctab-inner">
           <span class="ctab-num">06</span>
           <div>
@@ -1125,23 +1072,23 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
         <div class="cpanel-hdr"><h3>Tours by Duration</h3><p>A few hours or a full weekend — we have the right course for you.</p></div>
         <div class="course-grid">
           <div class="ccard" onclick="openBooking('Hwaseong Morning Walk','₩45,000','Half Day · 4hrs')">
-            <div class="ccard-img" style="background:#c8bc98"><div class="ccard-badge">Best Seller</div><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#c8bc98"/><circle cx="180" cy="45" r="36" fill="#f5e0a0" opacity=".3"/><path d="M0,100 C40,82 90,72 160,80 C200,85 230,70 240,65 L240,180 L0,180Z" fill="#b8a878" opacity=".6"/><rect x="0" y="115" width="240" height="65" fill="#c0b088" opacity=".65"/><rect x="72" y="54" width="96" height="76" fill="#b8a878" opacity=".8"/><polygon points="72,54 120,32 168,54" fill="#b0a070"/><polyline points="72,54 120,32 168,54" fill="none" stroke="rgba(160,128,64,.4)" stroke-width=".7"/><circle cx="120" cy="40" r="4" fill="#a08040" opacity=".65"/></svg></div>
+            <div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Hwaseong Morning Walk" loading="lazy"><div class="ccard-badge">Best Seller</div><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#c8bc98"/><circle cx="180" cy="45" r="36" fill="#f5e0a0" opacity=".3"/><path d="M0,100 C40,82 90,72 160,80 C200,85 230,70 240,65 L240,180 L0,180Z" fill="#b8a878" opacity=".6"/><rect x="0" y="115" width="240" height="65" fill="#c0b088" opacity=".65"/><rect x="72" y="54" width="96" height="76" fill="#b8a878" opacity=".8"/><polygon points="72,54 120,32 168,54" fill="#b0a070"/><polyline points="72,54 120,32 168,54" fill="none" stroke="rgba(160,128,64,.4)" stroke-width=".7"/><circle cx="120" cy="40" r="4" fill="#a08040" opacity=".65"/></svg></div>
             <div class="ccard-body"><h4>Hwaseong Morning Walk</h4><p>Catch the fortress at golden hour. Walk the full wall circuit with a local guide and hear stories behind every gate.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div>
           </div>
           <div class="ccard" onclick="openBooking('Haenggung Food Crawl','₩55,000','Half Day · 3hrs')">
-            <div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#d4c8a8"/><rect x="50" y="72" width="140" height="80" rx="2" fill="rgba(160,128,64,.2)" stroke="rgba(160,128,64,.28)" stroke-width=".6"/><path d="M60,80 Q78,72 98,81 Q98,102 78,108 Q58,102 60,80Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M108,77 Q130,69 152,78 Q152,100 130,106 Q108,100 108,77Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M78,72 Q72,50 78,32" stroke="rgba(160,128,64,.22)" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M130,70 Q124,48 130,30" stroke="rgba(160,128,64,.18)" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Haenggung Food Crawl" loading="lazy"><div class="ccard-dur">Half Day</div><svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><rect width="240" height="180" fill="#d4c8a8"/><rect x="50" y="72" width="140" height="80" rx="2" fill="rgba(160,128,64,.2)" stroke="rgba(160,128,64,.28)" stroke-width=".6"/><path d="M60,80 Q78,72 98,81 Q98,102 78,108 Q58,102 60,80Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M108,77 Q130,69 152,78 Q152,100 130,106 Q108,100 108,77Z" fill="rgba(160,100,40,.3)" stroke="rgba(160,80,20,.4)" stroke-width=".7"/><path d="M78,72 Q72,50 78,32" stroke="rgba(160,128,64,.22)" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M130,70 Q124,48 130,30" stroke="rgba(160,128,64,.18)" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div>
             <div class="ccard-body"><h4>Haenggung Food Crawl</h4><p>Alleyways of Haenggung-dong, tasting local specialties at 4–5 stops with our partner restaurants.</p><div class="ccard-foot"><span class="ccard-price">₩55,000</span><button class="ccard-book">Reserve</button></div></div>
           </div>
           <div class="ccard" onclick="openBooking('Full Day Suwon Deep Dive','₩89,000','Full Day · 8hrs')">
-            <div class="ccard-img" style="background:#c8bc98"><div class="ccard-badge">Most Complete</div><div class="ccard-dur">Full Day</div></div>
+            <div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Full Day Suwon Deep Dive" loading="lazy"><div class="ccard-badge">Most Complete</div><div class="ccard-dur">Full Day</div></div>
             <div class="ccard-body"><h4>Full Day Suwon Deep Dive</h4><p>Fortress walk + Haenggung Palace + local lunch + craft market. The full Suwon story in one day.</p><div class="ccard-foot"><span class="ccard-price">₩89,000</span><button class="ccard-book">Reserve</button></div></div>
           </div>
           <div class="ccard" onclick="openBooking('Suwon 1 Night 2 Days','₩185,000','1 Night · 2 Days')">
-            <div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">1N2D</div></div>
+            <div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31663811/pexels-photo-31663811.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Suwon 1 Night 2 Days" loading="lazy"><div class="ccard-dur">1N2D</div></div>
             <div class="ccard-body"><h4>Suwon 1 Night 2 Days</h4><p>Full tour + night lantern walk + hanok stay + morning market breakfast. The immersive local experience.</p><div class="ccard-foot"><span class="ccard-price">₩185,000</span><button class="ccard-book">Reserve</button></div></div>
           </div>
           <div class="ccard" onclick="openBooking('Royal Suwon 2 Nights','₩290,000','2 Nights · 3 Days')">
-            <div class="ccard-img" style="background:#c0b488"><div class="ccard-badge">Flagship</div><div class="ccard-dur">2N3D</div></div>
+            <div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Royal Suwon 2 Nights" loading="lazy"><div class="ccard-badge">Flagship</div><div class="ccard-dur">2N3D</div></div>
             <div class="ccard-body"><h4>Royal Suwon 2 Nights</h4><p>Palace performance, traditional crafts, night fortress walk, and a farewell local dinner.</p><div class="ccard-foot"><span class="ccard-price">₩290,000</span><button class="ccard-book">Reserve</button></div></div>
           </div>
         </div>
@@ -1150,44 +1097,44 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
       <div class="cpanel" id="panel-season">
         <div class="cpanel-hdr"><h3>Tours by Season</h3><p>Suwon changes beautifully every season. Each course is designed around the best of that time of year.</p></div>
         <div class="course-grid">
-          <div class="ccard" onclick="openBooking('Cherry Blossom Walk','₩52,000','Spring · 4hrs')"><div class="ccard-img" style="background:#d8c8c0"><div class="ccard-dur">Spring</div></div><div class="ccard-body"><h4>Cherry Blossom Walk</h4><p>Walk the Hwaseong wall lined with cherry blossoms. Best March–April.</p><div class="ccard-foot"><span class="ccard-price">₩52,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Summer Night Market Walk','₩48,000','Summer · 3hrs')"><div class="ccard-img" style="background:#c0c8b8"><div class="ccard-dur">Summer</div></div><div class="ccard-body"><h4>Summer Night Market Walk</h4><p>Evening stroll through Jidong and Paldalmun markets as the city cools down.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Autumn Fortress & Foliage','₩65,000','Autumn · 5hrs')"><div class="ccard-img" style="background:#d4c0a0"><div class="ccard-badge">Most Loved</div><div class="ccard-dur">Autumn</div></div><div class="ccard-body"><h4>Autumn Fortress &amp; Foliage</h4><p>Golden and crimson leaves against 200-year-old stone walls in October.</p><div class="ccard-foot"><span class="ccard-price">₩65,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Winter Lantern Night Walk','₩58,000','Winter · 3hrs')"><div class="ccard-img" style="background:#c4c8d0"><div class="ccard-dur">Winter</div></div><div class="ccard-body"><h4>Winter Lantern Night Walk</h4><p>Walk the illuminated fortress. Make your own lantern and release it at the eastern gate.</p><div class="ccard-foot"><span class="ccard-price">₩58,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Cherry Blossom Walk','₩52,000','Spring · 4hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Cherry Blossom Walk" loading="lazy"><div class="ccard-dur">Spring</div></div><div class="ccard-body"><h4>Cherry Blossom Walk</h4><p>Walk the Hwaseong wall lined with cherry blossoms. Best March–April.</p><div class="ccard-foot"><span class="ccard-price">₩52,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Summer Night Market Walk','₩48,000','Summer · 3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31680696/pexels-photo-31680696.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Summer Night Market Walk" loading="lazy"><div class="ccard-dur">Summer</div></div><div class="ccard-body"><h4>Summer Night Market Walk</h4><p>Evening stroll through Jidong and Paldalmun markets as the city cools down.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Autumn Fortress & Foliage','₩65,000','Autumn · 5hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Autumn Fortress" loading="lazy"><div class="ccard-badge">Most Loved</div><div class="ccard-dur">Autumn</div></div><div class="ccard-body"><h4>Autumn Fortress &amp; Foliage</h4><p>Golden and crimson leaves against 200-year-old stone walls in October.</p><div class="ccard-foot"><span class="ccard-price">₩65,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Winter Lantern Night Walk','₩58,000','Winter · 3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Winter Lantern Night Walk" loading="lazy"><div class="ccard-dur">Winter</div></div><div class="ccard-body"><h4>Winter Lantern Night Walk</h4><p>Walk the illuminated fortress. Make your own lantern and release it at the eastern gate.</p><div class="ccard-foot"><span class="ccard-price">₩58,000</span><button class="ccard-book">Reserve</button></div></div></div>
         </div>
       </div>
 
       <div class="cpanel" id="panel-hwaseong">
         <div class="cpanel-hdr"><h3>Hwaseong Fortress</h3><p>UNESCO World Heritage. Built 1796. Every stone has a story.</p></div>
         <div class="course-grid">
-          <div class="ccard" onclick="openBooking('Hwaseong Heritage Walk','₩45,000','3hrs')"><div class="ccard-img" style="background:#c8bc98"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Heritage Walk</h4><p>Full circuit with a history-focused English guide. All 4 gates + Seojangdae command post.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Royal Performance & Palace','₩62,000','4hrs')"><div class="ccard-img" style="background:#d4c8a0"><div class="ccard-dur">4hrs</div></div><div class="ccard-body"><h4>Royal Performance &amp; Palace</h4><p>Guard-changing ceremony at Haenggung Palace, then explore the inner courts.</p><div class="ccard-foot"><span class="ccard-price">₩62,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Night Fortress Walk','₩55,000','Evening')"><div class="ccard-img" style="background:#c8c0b0"><div class="ccard-dur">Evening</div></div><div class="ccard-body"><h4>Night Fortress Walk</h4><p>Hwaseong illuminated after dark — lantern light on 200-year-old stone walls.</p><div class="ccard-foot"><span class="ccard-price">₩55,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Hwaseong Heritage Walk','₩45,000','3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/29404706/pexels-photo-29404706.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Heritage Walk" loading="lazy"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Heritage Walk</h4><p>Full circuit with a history-focused English guide. All 4 gates + Seojangdae command post.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Royal Performance & Palace','₩62,000','4hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Royal Performance" loading="lazy"><div class="ccard-dur">4hrs</div></div><div class="ccard-body"><h4>Royal Performance &amp; Palace</h4><p>Guard-changing ceremony at Haenggung Palace, then explore the inner courts.</p><div class="ccard-foot"><span class="ccard-price">₩62,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Night Fortress Walk','₩55,000','Evening')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31663811/pexels-photo-31663811.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Night Fortress Walk" loading="lazy"><div class="ccard-dur">Evening</div></div><div class="ccard-body"><h4>Night Fortress Walk</h4><p>Hwaseong illuminated after dark — lantern light on 200-year-old stone walls.</p><div class="ccard-foot"><span class="ccard-price">₩55,000</span><button class="ccard-book">Reserve</button></div></div></div>
         </div>
       </div>
 
       <div class="cpanel" id="panel-walk">
         <div class="cpanel-hdr"><h3>Walking Routes</h3><p>On foot, at a local pace — the only real way to feel a city.</p></div>
         <div class="course-grid">
-          <div class="ccard" onclick="openBooking('Palsaek-gil Heritage Trail','₩42,000','3hrs')"><div class="ccard-img" style="background:#c4c8b8"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Palsaek-gil Heritage Trail</h4><p>The scenic 8-colour trail connecting Suwon's historic gates, ponds, and traditional neighbourhoods.</p><div class="ccard-foot"><span class="ccard-price">₩42,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Royal Alley Walk','₩45,000','2.5hrs')"><div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Royal Alley Walk</h4><p>The hidden lanes of Haenggung-dong — indie cafés, craft studios, and the alleyways locals love.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Palsaek-gil Heritage Trail','₩42,000','3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Palsaek-gil Heritage Trail" loading="lazy"><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Palsaek-gil Heritage Trail</h4><p>The scenic 8-colour trail connecting Suwon's historic gates, ponds, and traditional neighbourhoods.</p><div class="ccard-foot"><span class="ccard-price">₩42,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Royal Alley Walk','₩45,000','2.5hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31680696/pexels-photo-31680696.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Royal Alley Walk" loading="lazy"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Royal Alley Walk</h4><p>The hidden lanes of Haenggung-dong — indie cafés, craft studios, and the alleyways locals love.</p><div class="ccard-foot"><span class="ccard-price">₩45,000</span><button class="ccard-book">Reserve</button></div></div></div>
         </div>
       </div>
 
       <div class="cpanel" id="panel-market">
         <div class="cpanel-hdr"><h3>Market Tours</h3><p>Five real, active traditional markets. Not tourist traps — real Suwon life.</p></div>
         <div class="course-grid">
-          <div class="ccard" onclick="openBooking('Paldalmun Market Morning','₩48,000','3hrs')"><div class="ccard-img" style="background:#d0c4a0"><div class="ccard-dur">Morning</div></div><div class="ccard-body"><h4>Paldalmun Market Morning</h4><p>The city's biggest traditional market at its best — dawn deliveries, grandma's banchan stalls.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Galbi Street Food Tour','₩75,000','3hrs')"><div class="ccard-img" style="background:#c8c0a0"><div class="ccard-badge">Fan Favourite</div><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Galbi Street Food Tour</h4><p>Ingye-dong galbi street + palace-side snack stalls + Paldalmun street food square.</p><div class="ccard-foot"><span class="ccard-price">₩75,000</span><button class="ccard-book">Reserve</button></div></div></div>
-          <div class="ccard" onclick="openBooking('Jidong & Yeongdong Markets','₩44,000','2.5hrs')"><div class="ccard-img" style="background:#c4c8b8"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Jidong &amp; Yeongdong Markets</h4><p>Two neighbourhood markets — dried goods, textiles, seasonal produce, and the best hotteok in town.</p><div class="ccard-foot"><span class="ccard-price">₩44,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Paldalmun Market Morning','₩48,000','3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Paldalmun Market Morning" loading="lazy"><div class="ccard-dur">Morning</div></div><div class="ccard-body"><h4>Paldalmun Market Morning</h4><p>The city's biggest traditional market at its best — dawn deliveries, grandma's banchan stalls.</p><div class="ccard-foot"><span class="ccard-price">₩48,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Galbi Street Food Tour','₩75,000','3hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/2313682/pexels-photo-2313682.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Galbi Street Food Tour" loading="lazy"><div class="ccard-badge">Fan Favourite</div><div class="ccard-dur">3hrs</div></div><div class="ccard-body"><h4>Galbi Street Food Tour</h4><p>Ingye-dong galbi street + palace-side snack stalls + Paldalmun street food square.</p><div class="ccard-foot"><span class="ccard-price">₩75,000</span><button class="ccard-book">Reserve</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Jidong & Yeongdong Markets','₩44,000','2.5hrs')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31680696/pexels-photo-31680696.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Jidong" loading="lazy"><div class="ccard-dur">2.5hrs</div></div><div class="ccard-body"><h4>Jidong &amp; Yeongdong Markets</h4><p>Two neighbourhood markets — dried goods, textiles, seasonal produce, and the best hotteok in town.</p><div class="ccard-foot"><span class="ccard-price">₩44,000</span><button class="ccard-book">Reserve</button></div></div></div>
         </div>
       </div>
 
       <div class="cpanel" id="panel-private">
         <div class="cpanel-hdr"><h3>Private &amp; Custom Tours</h3><p>Your group, your pace, your Suwon.</p></div>
         <div class="course-grid">
-          <div class="ccard" onclick="openBooking('Private Custom Tour','From ₩150,000','Your group')"><div class="ccard-img" style="background:#d4c8a8"><div class="ccard-dur">Flexible</div></div><div class="ccard-body"><h4>Private Custom Tour</h4><p>Tell us what you love — history, food, photography — and we build the day around you.</p><div class="ccard-foot"><span class="ccard-price">From ₩150,000</span><button class="ccard-book">Enquire</button></div></div></div>
-          <div class="ccard" onclick="openBooking('AI Smart Itinerary','From ₩130,000','48hr notice')"><div class="ccard-img" style="background:#c8c0b0"><div class="ccard-dur">Custom</div></div><div class="ccard-body"><h4>AI Smart Itinerary</h4><p>Answer a few questions about your style. Our AI builds a personalised Suwon day — our guide brings it to life.</p><div class="ccard-foot"><span class="ccard-price">From ₩130,000</span><button class="ccard-book">Enquire</button></div></div></div>
+          <div class="ccard" onclick="openBooking('Private Custom Tour','From ₩150,000','Your group')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/31663811/pexels-photo-31663811.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="Private Custom Tour" loading="lazy"><div class="ccard-dur">Flexible</div></div><div class="ccard-body"><h4>Private Custom Tour</h4><p>Tell us what you love — history, food, photography — and we build the day around you.</p><div class="ccard-foot"><span class="ccard-price">From ₩150,000</span><button class="ccard-book">Enquire</button></div></div></div>
+          <div class="ccard" onclick="openBooking('AI Smart Itinerary','From ₩130,000','48hr notice')"><div class="ccard-img" style="background:#1a1612"><img class="ccard-photo" src="https://images.pexels.com/photos/6896969/pexels-photo-6896969.jpeg?auto=compress&cs=tinysrgb&w=600&h=700&fit=crop" alt="AI Smart Itinerary" loading="lazy"><div class="ccard-dur">Custom</div></div><div class="ccard-body"><h4>AI Smart Itinerary</h4><p>Answer a few questions about your style. Our AI builds a personalised Suwon day — our guide brings it to life.</p><div class="ccard-foot"><span class="ccard-price">From ₩130,000</span><button class="ccard-book">Enquire</button></div></div></div>
         </div>
       </div>
 
@@ -1254,7 +1201,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
 <div class="photo-cta fade-up">
   <div class="pcta-bg">
     <img
-      src="https://images.pexels.com/photos/2614825/pexels-photo-2614825.jpeg?auto=compress&cs=tinysrgb&w=1920&dpr=2"
+      src="https://images.pexels.com/photos/19271577/pexels-photo-19271577.jpeg?auto=compress&cs=tinysrgb&w=1920&h=520&fit=crop"
       alt="Suwon Korea" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(12%) saturate(80%) brightness(.88)">
     
   </div>
